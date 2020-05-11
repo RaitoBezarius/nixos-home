@@ -1,6 +1,13 @@
-{ config, pkgs, ... }:
-
+{ config, pkgs, lib, ... }:
+let
+  emailUtils = import ./emails/utils.nix { inherit lib; };
+in
 {
+  imports = [
+    ./emails
+    ./theme
+  ];
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
@@ -18,7 +25,6 @@
       unsetopt autocd beep
     '';
   };
-
 
   # Broot
   programs.broot = {
@@ -42,8 +48,8 @@
   programs.git = {
     enable = true;
     package = pkgs.gitAndTools.gitFull; # for git send-email
-    userEmail = "masterancpp@gmail.com";
-    userName = "Raito Bezarius";
+    userEmail = emailUtils.obfuscate "moc.liamg@ppcnaretsam";
+    userName = emailUtils.obfuscate "suirazeB otiaR";
   };
 
   # Kitty

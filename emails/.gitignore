@@ -1,0 +1,3 @@
+virtualboxes.nix
+filters/
+!filters/lib.nix

@@ -11,11 +11,8 @@ in
 {
   imports = [
     ./afew.nix
+    ./mailcap.nix
   ];
-
-  services = {
-    imapnotify.enable = false;
-  };
 
   programs = {
     mbsync.enable = true;
@@ -23,17 +20,29 @@ in
     neomutt = {
       enable = true;
       sidebar.enable = true;
+      sidebar.shortPath = true;
+      sidebar.format = "%D%* %n";
       vimKeys = true;
       sort = "reverse-date";
       extraConfig = ''
-        bind index,pager \CP sidebar-prev       # Ctrl-Shift-P - Previous Mailbox
-        bind index,pager \CN sidebar-next       # Ctrl-Shift-N - Next Mailbox
+        bind index,pager K sidebar-prev       
+        bind index,pager J sidebar-next       
         bind index,pager \CO sidebar-open       # Ctrl-Shift-O - Open Highlighted Mailbox
+        bind index,pager B sidebar-toggle-visible
 
-        set sidebar_short_path                  # Shorten mailbox names
+        set sidebar_width = 30
         set sidebar_delim_chars="/"             # Delete everything up to the last / character
         set sidebar_folder_indent               # Indent folders whose names we've shortened
         set sidebar_indent_string="  "          # Indent with two spaces
+        set mail_check_stats=yes
+        set sidebar_component_depth = 0
+        set sidebar_sort_method = "path"
+        set sidebar_new_mail_only = no
+        set sidebar_non_empty_mailbox_only = no
+
+        alternative_order text/plain text/html
+        set mailcap_path = ~/.config/mailcap
+        macro attach 'V' "<pipe-entry>iconv -c --to-code=UTF8 > ~/.cache/mutt/mail.html<enter><shell-escape>$BROWSER ~/.cache/mutt/mail.html<enter>"
 
         ${colorscheme}
       '';
@@ -46,12 +55,72 @@ in
     };
   };
 
+  services.imapnotify.enable = true;
+
   accounts.email = {
     maildirBasePath = "mail";
     accounts = {
-      ryan-xyz = {
+      ens-fr = {
         primary = true;
+        realName = "Ryan Lahfa";
+        address = "ryan.lahfa@ens.fr";
+        signature = {
+          showSignature = "append";
+          text = ''
+            ${obfuscate "afhaL nayR"}
+          '';
+        };
 
+        mbsync = {
+          enable = true;
+          create = "both";
+        };
+        msmtp.enable = true;
+        neomutt = {
+          enable = true;
+          extraConfig = ''
+            mailboxes `find ~/mail/ens-fr -type d -name cur | sort | sed -e 's:/cur/*$::' -e 's/ /\\ /g' | tr '\n' ' '`
+
+            folder-hook . "set sort=reverse-date ; set sort_aux=date"
+            folder-hook Inbox/DG "set sort=threads ; set sort_aux = reverse-last-date-received"
+            reply-hook "~t dg@ens.fr" "my_hdr From: Ryan Lahfa — DG <dg@ens.fr> ; my_hdr cc: dg@ens.fr"
+          '';
+        };
+        userName = "rlahfa";
+        imap = {
+          host = "clipper.ens.fr";
+          tls.enable = true;
+        };
+        smtp = {
+          host = "clipper.ens.fr";
+          tls.enable = true;
+          tls.useStartTls = false;
+        };
+        notmuch.enable = true;
+        passwordCommand = "pass ENS/SPI";
+        imapnotify = {
+          enable = true;
+          onNotifyPost = ''
+              ${pkgs.notmuch}/bin/notmuch new \
+              && ${pkgs.libnotify}/bin/notify-send "ENS: New mail arrived."
+            '';
+        };
+      };
+      masterancpp = {
+        realName = "Raito Bezarius";
+        address = "masterancpp@gmail.com";
+        flavor = "gmail.com";
+        mbsync = {
+          enable = true;
+          create = "both";
+        };
+        msmtp.enable = true;
+        neomutt = {
+          enable = true;
+        };
+        passwordCommand = "pass Private/Mail/Thorfinn/GMail";
+      };
+      ryan-xyz = {
         realName = obfuscate "afhaL nayR";
         signature = {
           showSignature = "append";
@@ -65,23 +134,23 @@ in
 
         userName = obfuscate "zyx.afhal@nayr";
         imap = {
-          host = "mail.lahfa.xyz";
+          host = "kurisu.lahfa.xyz";
           tls.enable = true;
         };
         smtp = {
-          host = "mail.lahfa.xyz";
+          host = "kurisu.lahfa.xyz";
+          port = 587;
           tls.enable = true;
+          tls.useStartTls = true;
         };
 
         imapnotify = {
           enable = true;
           boxes = [ "Inbox" ];
-          onNotifyPost = {
-            mail = ''
-              ${pkgs.notmuch}/bin/notmuch new \
-              && ${pkgs.libnotify}/bin/notify-send "New mail arrived."
-            '';
-          };
+          onNotifyPost = ''
+            ${pkgs.notmuch}/bin/notmuch new \
+            && ${pkgs.libnotify}/bin/notify-send "New mail arrived."
+          '';
         };
         mbsync = {
           enable = true;
@@ -90,15 +159,9 @@ in
         msmtp.enable = true;
         neomutt = {
           enable = true;
-          extraConfig = ''
-            ${mkVirtualBox "tag:inbox" "BAL"}
-            ${virtualboxes}
-            unmailboxes "/home/raito/mail/ryan-xyz/Inbox"
-            unvirtual-mailboxes "My INBOX"
-          '';
         };
         notmuch.enable = true;
-        passwordCommand = "pass Private/Mail/lahfa.xyz";
+        passwordCommand = "pass Private/Mail/V6/ryan@lahfa.xyz";
       };
     };
   };

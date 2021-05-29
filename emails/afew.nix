@@ -11,6 +11,8 @@ let
     ./filters/scop.nix
     ./filters/personal.nix
     ./filters/dev.nix
+    ./filters/spammy.nix
+    ./filters/videogames.nix
   ] ++ privateFilters;
   extraFilters = [
     (filterLib.mkSpamLike [
@@ -19,6 +21,12 @@ let
       "ing"
       "twitter"
       "rocketchat"
+      "amazon"
+      "igraal"
+      "ecommerce"
+      "videogames"
+      "freelance"
+      "spammy"
     ])
   ];
   finalFilters = packagedFilters;

@@ -1,4 +1,8 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }: 
+let
+  fetchFromGitHub = pkgs.fetchFromGitHub;
+in
+{
   xdg.configFile."zsh/personal".source = config.lib.file.mkOutOfStoreSymlink ../dotfiles/zsh;
   age.secrets.work-zshrc.file = ../secrets/work-zshrc.age;
 
@@ -68,6 +72,8 @@
       fetch-emails = "mbsync --all && notmuch new && afew -t -n -v";
 
       mpvl = "mpv --loop-file $1";
+
+      phub = "nix-prefetch fetchFromGitHub";
     };
 
     dirHashes = {
@@ -77,6 +83,35 @@
       cfg-home = "${config.home.homeDirectory}/dev/projects/personal-configuration/nixos-home";
       ens = "${config.home.homeDirectory}/dev/projects/ens";
     };
+    plugins = [
+      {
+        name = "auto-notify";
+        src = fetchFromGitHub {
+          repo = "zsh-auto-notify";
+          owner = "MichaelAquilina";
+          rev = "fb38802d331408e2ebc8e6745fb8e50356344aa4";
+          sha256 = "sha256-bY0qLX5Kpt2x4KnfvXjYK2+BhR3zKBgGsCvIxSzApws=";
+        };
+      }
+      {
+        name = "nix-shell";
+        src = fetchFromGitHub {
+          repo = "zsh-nix-shell";
+          owner = "chisui";
+          rev = "f8574f27e1d7772629c9509b2116d504798fe30a";
+          sha256 = "sha256-WNa8RljYhkOWk7AZbdTOvYhWw1fR8PjFxH/tnUCbems=";
+        };
+      }
+      {
+        name = "jq";
+        src = fetchFromGitHub {
+          repo = "jq-zsh-plugin";
+          owner = "reegnz";
+          rev = "98650d6eac46b5f87aa19f0a3dd321b0105643b8";
+          sha256 = "sha256-L2+PW39BZTy8h4yxxZxbKCVVKlfPruM12gRZ9FJ8YD8=";
+        };
+      }
+    ];
   };
 
   # Broot

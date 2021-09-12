@@ -3,6 +3,7 @@
   home.packages = with pkgs; [
     signal-desktop
     fd
+    feh
     yq-go
     niv
     git-crypt
@@ -41,5 +42,8 @@
     nodePackages.node2nix
     raito-dev.nodePackages.lean-language-server
     borgbackup
+    python39Packages.percol
+    libnotify
+    fzf
   ];
 }

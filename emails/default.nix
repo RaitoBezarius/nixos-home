@@ -6,17 +6,21 @@ let
   virtualboxes = (import ./virtualboxes.nix).virtualboxes;
   colorscheme = (import ./colorscheme.nix).colorscheme;
   utils = (import ./utils.nix { inherit lib; });
+  realName = utils.obfuscate "afhaL nayR";
+  passStore = key: "${pkgs.pass}/bin/pass ${key}";
 in
   with utils;
 {
   imports = [
     # ./afew.nix
     ./mailcap.nix
+    ./imapfilter
   ];
 
   programs = {
     mbsync.enable = true;
     msmtp.enable = true;
+    imapfilter.enable = true;
     neomutt = {
       enable = true;
       sidebar.enable = true;
@@ -62,12 +66,12 @@ in
     accounts = {
       ens-fr = {
         primary = true;
-        realName = "Ryan Lahfa";
-        address = "ryan.lahfa@ens.fr";
+        inherit realName;
+        address = obfuscate "rf.sne@afhal.nayr";
         signature = {
           showSignature = "append";
           text = ''
-            ${obfuscate "afhaL nayR"}
+            ${realName}
           '';
         };
 
@@ -75,11 +79,15 @@ in
           enable = true;
           create = "both";
         };
+        imapfilter = {
+          enable = true;
+          filterScriptFile = ../dotfiles/filters/ens.lua;
+        };
         msmtp.enable = true;
         neomutt = {
           enable = true;
           extraConfig = ''
-            mailboxes `find ~/mail/ens-fr -type d -name cur | sort | sed -e 's:/cur/*$::' -e 's/ /\\ /g' | tr '\n' ' '`
+            mailboxes `find ${config.accounts.email.maildirBasePath}/ens-fr -type d -name cur | sort | sed -e 's:/cur/*$::' -e 's/ /\\ /g' | tr '\n' ' '`
 
             folder-hook . "set sort=reverse-date ; set sort_aux=date"
             folder-hook Inbox/DG "set sort=threads ; set sort_aux = reverse-last-date-received"
@@ -94,10 +102,10 @@ in
         smtp = {
           host = "clipper.ens.fr";
           tls.enable = true;
-          tls.useStartTls = false;
+          port = 465;
         };
         notmuch.enable = true;
-        passwordCommand = "pass ENS/SPI";
+        passwordCommand = passStore "ENS/SPI";
         imapnotify = {
           enable = true;
           onNotifyPost = ''
@@ -118,14 +126,14 @@ in
         neomutt = {
           enable = true;
         };
-        passwordCommand = "pass Private/Mail/Thorfinn/GMail";
+        passwordCommand = passStore "Private/Mail/Thorfinn/GMail";
       };
       ryan-xyz = {
-        realName = obfuscate "afhaL nayR";
+        inherit realName;
         signature = {
           showSignature = "append";
           text = ''
-            ${obfuscate "afhaL nayR"}
+            ${realName}
           '';
         };
 
@@ -149,7 +157,7 @@ in
           boxes = [ "Inbox" ];
           onNotifyPost = ''
             ${pkgs.notmuch}/bin/notmuch new \
-            && ${pkgs.libnotify}/bin/notify-send "New mail arrived."
+            && ${pkgs.libnotify}/bin/notify-send "Personal: New mail arrived."
           '';
         };
         mbsync = {
@@ -161,7 +169,7 @@ in
           enable = true;
         };
         notmuch.enable = true;
-        passwordCommand = "pass Private/Mail/V6/ryan@lahfa.xyz";
+        passwordCommand = passStore "Private/Mail/V6/ryan@lahfa.xyz";
       };
     };
   };

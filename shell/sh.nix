@@ -11,7 +11,7 @@ in
     enableCompletion = true;
     enableAutosuggestions = true;
     history = { save = 100000; extended = true; ignoreDups = true; };
-    defaultKeymap = "vicmd";
+    # defaultKeymap = "vicmd";
     initExtra = ''
       setopt extendedglob nomatch notify
       unsetopt autocd beep

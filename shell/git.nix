@@ -1,6 +1,6 @@
 { pkgs, lib, ... }:
 let
-  emailUtils = import ./emails/utils.nix { inherit lib; };
+  emailUtils = import ../emails/utils.nix { inherit lib; };
 in
 {
   # Git

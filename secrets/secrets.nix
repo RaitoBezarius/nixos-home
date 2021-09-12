@@ -5,4 +5,5 @@ in
 {
   "gotifyToken.age".publicKeys = laptops;
   "rzDroneToken.age".publicKeys = laptops;
+  "work-zshrc.age".publicKeys = laptops;
 }

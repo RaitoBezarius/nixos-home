@@ -10,7 +10,7 @@ in
   with utils;
 {
   imports = [
-    ./afew.nix
+    # ./afew.nix
     ./mailcap.nix
   ];
 

@@ -1,7 +1,7 @@
 { ... }:
 {
   imports = [
-    ./gtk.nix
-    ./dunst.nix
+    ./zsh.nix
+    ./git.nix
   ];
 }

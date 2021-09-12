@@ -74,6 +74,8 @@ in
       mpvl = "mpv --loop-file $1";
 
       phub = "nix-prefetch fetchFromGitHub";
+
+      sieve-xyz = "pass Private/Mail/V6/ryan@lahfa.xyz | sieve-connect -s kurisu.lahfa.xyz -u ryan@lahfa.xyz";
     };
 
     dirHashes = {

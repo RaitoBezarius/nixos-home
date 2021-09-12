@@ -46,5 +46,6 @@
     libnotify
     fzf
     keyutils
+    sieve-connect
   ];
 }

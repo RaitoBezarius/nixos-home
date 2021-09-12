@@ -167,6 +167,9 @@ in
         msmtp.enable = true;
         neomutt = {
           enable = true;
+          extraConfig = ''
+          mailboxes `find ${config.accounts.email.maildirBasePath}/ryan-xyz -type d -name cur | sort | sed -e 's:/cur/*$::' -e 's/ /\\ /g' | tr '\n' ' '`
+          '';
         };
         notmuch.enable = true;
         passwordCommand = passStore "Private/Mail/V6/ryan@lahfa.xyz";

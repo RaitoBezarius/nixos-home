@@ -74,8 +74,8 @@
       nix-hm = "/nix/var/nix/profiles/per-user/$USER/home-manager";
       nix-now = "/run/current-system";
       nix-boot = "/nix/var/nix/profiles/system";
-      cfg-home = "~/dev/projects/personal-configuration/nixos-home";
-      ens = "~/dev/projects/ens";
+      cfg-home = "${config.home.homeDirectory}/dev/projects/personal-configuration/nixos-home";
+      ens = "${config.home.homeDirectory}/dev/projects/ens";
     };
   };
 

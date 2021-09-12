@@ -11,6 +11,6 @@
   # Browser Pass
   programs.browserpass = {
     enable = true;
-    browsers = [ "firefox" ];
+    browsers = [ "chromium" ];
   };
 }

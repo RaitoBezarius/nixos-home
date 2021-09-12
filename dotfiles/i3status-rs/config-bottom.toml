@@ -1,0 +1,56 @@
+theme = "gruvbox-dark"
+icons = "awesome5"
+
+[[block]]
+block = "disk_space"
+path = "/"
+alias = "/"
+info_type = "available"
+unit = "GB"
+interval = 20
+warning = 30.0
+alert = 20.0
+
+[[block]]
+block = "disk_space"
+path = "/home"
+alias = "/home"
+info_type = "available"
+unit = "GB"
+interval = 20
+warning = 20.0
+alert = 10.0
+
+[[block]]
+block = "memory"
+display_type = "memory"
+# format_mem = "{Mig}GB/{MTg}GB({Mup}%)"
+format_swap = "{SUp}%"
+
+[[block]]
+block = "temperature"
+collapsed = false
+interval = 10
+format = "{min}° min, {max}° max, {average}° avg"
+chip = "*-isa-*"
+
+[[block]]
+block = "cpu"
+format = "{utilization} ({frequency})"
+interval = 1
+
+[[block]]
+block = "load"
+interval = 1
+format = "{1m}"
+
+[[block]]
+block = "battery"
+driver = "upower"
+device = "DisplayDevice"
+format = "{percentage} {time}"
+
+[[block]]
+block = "time"
+interval = 60
+format = "%a %d/%m %R"

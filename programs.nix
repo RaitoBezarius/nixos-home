@@ -45,5 +45,6 @@
     python39Packages.percol
     libnotify
     fzf
+    keyutils
   ];
 }

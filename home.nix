@@ -5,6 +5,7 @@
     ./shell
     ./emails
     ./theme
+    ./calendar.nix
     ./dotfiles.nix
     ./codium.nix
     ./gpg.nix

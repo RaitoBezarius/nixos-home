@@ -25,6 +25,10 @@ in
     settings = mkOption {
       type = types.attrs;
     };
+    configFile = mkOption {
+      type = types.path;
+      default = cfgFile;
+    };
     onBootSec = mkOption {
       type = types.str;
       default = "15min";

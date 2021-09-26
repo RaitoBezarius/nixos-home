@@ -47,5 +47,7 @@
     fzf
     keyutils
     sieve-connect
+    whois
+    zip
   ];
 }

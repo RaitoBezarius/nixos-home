@@ -40,6 +40,7 @@ in
       dnd = "dunstctl set-paused true";
       nodnd = "dunstctl set-paused false";
 
+      lg = "lazygit";
       g = "git";
       gua = "git remote | xargs -L1 git push --all";
 

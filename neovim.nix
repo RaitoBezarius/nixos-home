@@ -67,6 +67,7 @@ in
         flake8
         isort
       ]))
+      rust-analyzer
     ];
     extraPython3Packages = (ps: with ps; [
 
@@ -97,11 +98,14 @@ in
       " Use <leader>x for convert visual selected code to snippet
       xmap <leader>x  <Plug>(coc-convert-snippet)
 
+      " For pandoc
+      let g:pandoc#modules#disabled = ["spell"]
+
       lua<<EOF
-        ${builtins.readFile ~/dotfiles/nvim/lua/lean.lua}
+        ${builtins.readFile /home/raito/dotfiles/nvim/lua/lean.lua}
       EOF
     '';
   };
 
-  xdg.configFile."nvim/coc-settings.json".text = builtins.readFile ~/dotfiles/coc-settings.json;
+  xdg.configFile."nvim/coc-settings.json".text = builtins.readFile /home/raito/dotfiles/coc-settings.json;
 }

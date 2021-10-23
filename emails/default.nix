@@ -3,7 +3,16 @@ let
   utils = (import ./utils.nix { inherit lib; });
   realName = utils.obfuscate "afhaL nayR";
   # returns password element and cache it in long term session.
-  passStore = key: "${pkgs.raito-dev.kachpass}/bin/kachpass ${key}";
+  mkKachPass = target: pkgs.raito-dev.kachpass.mkKachPass {
+    targetKeyring = target;
+  };
+  passStore = rec {
+    generic = drv: key: "${drv}/bin/kachpass ${key}";
+    process = generic (mkKachPass "@p");
+    user = generic (mkKachPass "@u");
+    defaultSession = generic (mkKachPass "@us");
+    session = generic (mkKachPass "@s");
+  };
   # the issue is that mailboxes is stricter now, so fake entries have to be injected using named-mailboxes.
   list-mailboxes = pkgs.writeScriptBin "list-mailboxes" ''
     find ${config.accounts.email.maildirBasePath}/$1 -type d -name cur | sort | sed -e 's:/cur/*$::' -e 's/ /\\ /g' | uniq | tr '\n' ' '
@@ -89,7 +98,7 @@ in
           port = 465;
         };
         notmuch.enable = true;
-        passwordCommand = passStore "ENS/SPI";
+        passwordCommand = passStore.user "ENS/SPI";
         imapnotify = {
           enable = true;
           boxes = [ "INBOX" "INBOX/DG" ];
@@ -116,7 +125,7 @@ in
             named-mailboxes GMail-Inbox +Inbox
           '';
         };
-        passwordCommand = passStore "Private/Mail/Thorfinn/GMail";
+        passwordCommand = passStore.user "Private/Mail/Thorfinn/GMail";
       };
       ryan-xyz = {
         inherit realName;
@@ -165,7 +174,7 @@ in
           '';
         };
         notmuch.enable = true;
-        passwordCommand = passStore "Private/Mail/V6/ryan@lahfa.xyz";
+        passwordCommand = passStore.user "Private/Mail/V6/ryan@lahfa.xyz";
       };
     };
   };

@@ -1,6 +1,6 @@
 function upc() (
 	set -eo pipefail
-	{ sudo nixos-rebuild build --upgrade && nvd diff ~nix-now result; } || (unlink result &>/dev/null; exit 1)
+	{ sudo unbuffer nixos-rebuild build --upgrade |& nom && nvd diff ~nix-now result; } || (unlink result &>/dev/null; exit 1)
 	if read -q "CHOICE?Upgrade? y/n "; then
 		echo
 		yellow "Switching now to new version."
@@ -17,7 +17,7 @@ function nix-rback() {
 function hupc() (
 	set -eo pipefail
 	nix-channel --update home-manager
-	{ home-manager build "$@" && nvd diff ~nix-hm result; } || (unlink result &>/dev/null; exit 1)
+	{ unbuffer home-manager build "$@" |& nom && nvd diff ~nix-hm result; } || (unlink result &>/dev/null; exit 1)
 	if read -q "CHOICE?Upgrade? y/n "; then
 		echo
 		yellow "Switching now to new version."

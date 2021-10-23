@@ -49,5 +49,10 @@
     sieve-connect
     whois
     zip
+    alacritty
+    tmux
+    gdb
+    tealdeer
+    nixos-option
   ];
 }

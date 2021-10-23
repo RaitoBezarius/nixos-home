@@ -18,6 +18,7 @@ in
     # ./afew.nix
     ./mailcap.nix
     ./neomutt.nix
+    ./mailto.nix
     ./imapfilter
   ];
 
@@ -73,6 +74,7 @@ in
             folder-hook . "set sort=reverse-date ; set sort_aux=date"
             folder-hook Inbox/DG "set sort=threads ; set sort_aux = reverse-last-date-received"
             reply-hook "~t dg@ens.fr" "my_hdr From: Ryan Lahfa — DG <dg@ens.fr> ; my_hdr cc: dg@ens.fr"
+            reply-hook "~t dg@ens.psl.eu" "my_hdr From: Ryan Lahfa — DG <dg@ens.fr> ; my_hdr cc: dg@ens.fr"
           '';
         };
         userName = "rlahfa";

@@ -1,6 +1,6 @@
 { pkgs, config, ... }:
 let
-  passStore = key: [ "command" "${pkgs.pass}/bin/pass" key ];
+  passStore = key: [ "command" "${pkgs.raito.kachpass}/bin/kachpass" key ];
 in
 {
   imports = [

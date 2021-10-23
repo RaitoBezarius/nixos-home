@@ -32,6 +32,8 @@ in
 
       alternative_order text/plain text/html
       set mailcap_path = ~/.config/mailcap
+      macro pager \cb "<pipe-message> ${pkgs.urlscan}/bin/urlscan<Enter>" "call urlscan to extract URLs out of a message"
+      macro index,pager O "<shell-escape>mbsync -a<enter>" "run mbsync to sync all emails"
       macro attach 'V' "<pipe-entry>iconv -c --to-code=UTF8 > ~/.cache/mutt/mail.html<enter><shell-escape>$BROWSER ~/.cache/mutt/mail.html<enter>"
 
       ${colorscheme}

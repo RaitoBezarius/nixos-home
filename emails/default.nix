@@ -3,7 +3,7 @@ let
   utils = (import ./utils.nix { inherit lib; });
   realName = utils.obfuscate "afhaL nayR";
   # returns password element and cache it in long term session.
-  passStore = key: "${pkgs.raito.kachpass}/bin/kachpass ${key}";
+  passStore = key: "${pkgs.raito-dev.kachpass}/bin/kachpass ${key}";
   # the issue is that mailboxes is stricter now, so fake entries have to be injected using named-mailboxes.
   list-mailboxes = pkgs.writeScriptBin "list-mailboxes" ''
     find ${config.accounts.email.maildirBasePath}/$1 -type d -name cur | sort | sed -e 's:/cur/*$::' -e 's/ /\\ /g' | uniq | tr '\n' ' '

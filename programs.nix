@@ -54,5 +54,6 @@
     gdb
     tealdeer
     nixos-option
+    shellcheck
   ];
 }

@@ -16,6 +16,7 @@
     ./programs.nix
     ./rtorrent.nix
     ./neovim.nix
+    ./screen-layouts.nix
   ];
  
   # Let Home Manager install and manage itself.

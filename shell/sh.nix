@@ -77,12 +77,16 @@ in
       phub = "nix-prefetch fetchFromGitHub";
 
       sieve-xyz = "pass Private/Mail/V6/ryan@lahfa.xyz | sieve-connect -s kurisu.lahfa.xyz -u ryan@lahfa.xyz";
+
+      nrs = "sudo nixos-rebuild switch";
+      nrt = "sudo nixos-rebuild test";
     };
 
     dirHashes = {
       nix-hm = "/nix/var/nix/profiles/per-user/$USER/home-manager";
       nix-now = "/run/current-system";
       nix-boot = "/nix/var/nix/profiles/system";
+      cfg-sys = "/etc/nixos";
       cfg-home = "${config.home.homeDirectory}/dev/projects/personal-configuration/nixos-home";
       ens = "${config.home.homeDirectory}/dev/projects/ens";
     };

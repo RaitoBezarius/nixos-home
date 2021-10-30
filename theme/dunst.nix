@@ -10,7 +10,7 @@
         indicate_hidden = "yes";
         word_wrap = "yes";
         stack_duplicates = "yes";
-        hide_duplicates_count = "yes";
+        notification_limit = "3";
         idle_threshold = "120";
         line_height = "0";
         max_icon_size = "64";
@@ -18,7 +18,8 @@
         format = "%s %p\\n%b";
         dmenu = "${pkgs.rofi}/bin/rofi";
         browser = "$BROWSER";
-        geometry = "500x0-15+25";
+        width = "(0, 500)";
+        offset = "15x25";
         padding = "8";
         horizontal_padding = "10";
         frame_width = "0";
@@ -42,7 +43,11 @@
         foreground = "#f8f8f2";
         timeout = "0";
       };
-
+    };
+    iconTheme = {
+      package = pkgs.gnome3.adwaita-icon-theme;
+      name = "Adwaita";
+      size = "32x32";
     };
   };
 

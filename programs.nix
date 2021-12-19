@@ -36,7 +36,7 @@
     # raito-dev.uhk-agent
     imapfilter
     python38Packages.vdirsyncer
-    sage
+    # sage
     elan
     drone-cli
     nodePackages.node2nix
@@ -55,5 +55,7 @@
     tealdeer
     nixos-option
     shellcheck
+    # mathlibtools
+    gnome-network-displays
   ];
 }

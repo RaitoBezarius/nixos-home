@@ -54,7 +54,7 @@ in {
             enable = true;
             position = "3286x0";
             mode = "2560x1440";
-            rotate = "right";
+            rotate = "left";
           };
         };
       };

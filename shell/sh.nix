@@ -89,6 +89,7 @@ in
       cfg-sys = "/etc/nixos";
       cfg-home = "${config.home.homeDirectory}/dev/projects/personal-configuration/nixos-home";
       ens = "${config.home.homeDirectory}/dev/projects/ens";
+      newtype = "${config.home.homeDirectory}/dev/projects/newtype";
     };
     plugins = [
       {

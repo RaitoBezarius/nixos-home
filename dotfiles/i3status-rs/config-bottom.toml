@@ -2,9 +2,13 @@ theme = "gruvbox-dark"
 icons = "awesome5"
 
 [[block]]
+block = "music"
+player = "mpd"
+buttons = ["prev", "play", "next"]
+
+[[block]]
 block = "disk_space"
 path = "/"
-alias = "/"
 info_type = "available"
 unit = "GB"
 interval = 20
@@ -14,7 +18,6 @@ alert = 20.0
 [[block]]
 block = "disk_space"
 path = "/home"
-alias = "/home"
 info_type = "available"
 unit = "GB"
 interval = 20
@@ -24,8 +27,7 @@ alert = 10.0
 [[block]]
 block = "memory"
 display_type = "memory"
-# format_mem = "{Mig}GB/{MTg}GB({Mup}%)"
-format_swap = "{SUp}%"
+format_mem = "{mem_free;M}/{mem_total;M} ({mem_total_used_percents})"
 
 [[block]]
 block = "temperature"

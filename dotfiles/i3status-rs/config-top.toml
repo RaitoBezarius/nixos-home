@@ -2,19 +2,14 @@ theme = "gruvbox-dark"
 icons = "awesome5"
 
 [[block]]
-block = "xrandr"
-icons = true
-resolution = true
-interval = 2
+block = "custom"
+command = '''ls ~/.local/share/msmtp/queue | wc -l | printf "Mails in queue: %d"'''
+on_click = "msmtp-queue -r"
+interval = 15
 
 [[block]]
 block = "speedtest"
 interval = 640
-
-[[block]]
-block = "music"
-player = "mpd"
-buttons = ["prev", "play", "next"]
 
 [[block]]
 block = "uptime"
@@ -22,30 +17,24 @@ block = "uptime"
 [[block]]
 block = "net"
 device = "wlp3s0"
-# ssid = true
-# ip = true
-# speed_up = false
-# graph_up = false
-interval = 5
+format = "{ssid} {signal_strength} {ip} {frequency}"
+format_alt = "{ssid} {ipv6} {speed_down;K*b}"
+interval = 20
+hide_inactive = true
 
 [[block]]
 block = "net"
 device = "enp0s31f6"
-# ssid = false
-# signal_strength = false
-# ip = true
-# speed_up = false
-# graph_up = false
-interval = 5
-# use_bits = false
+format = "{bitrate} {ip}"
+format_alt = "{ipv6} {speed_up;K*b} {speed_down;K*b}"
+interval = 20
+hide_inactive = true
 
 [[block]]
 block = "net"
-device = "ens1u2u1u2"
-# ssid = false
-# signal_strength = false
-# ip = true
-# speed_up = false
-# graph_up = false
+device = "enp9s0u1"
+format = "{bitrate} {ip}"
+format_alt = "{ipv6} {speed_up;K*b} {speed_down;K*b}"
 interval = 5
-# use_bits = false
+hide_inactive = true
+hide_missing = true

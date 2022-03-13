@@ -5,10 +5,21 @@ let
   '';
   virtualboxes = (import ./virtualboxes.nix).virtualboxes;
   colorscheme = (import ./colorscheme.nix).colorscheme;
+  useASAN = true;
 in
 {
   programs.neomutt = {
     enable = true;
+    package = pkgs.enableDebugging (pkgs.neomutt.overrideAttrs (old: {
+      configureFlags = old.configureFlags ++ lib.optional useASAN "--asan";
+      src = pkgs.fetchFromGitHub {
+        owner = "neomutt";
+        repo = "neomutt";
+        rev = "fd5745f56fd4c3a80fcf5dec42a0db2f1573b4c5";
+        sha256 = "sha256-vAS9omz3AGAMdsnSgsqXTGTQaY1aev4MEVvsC+W6j/k=";
+      };
+      patches = [];
+    }));
     sidebar.width = 40;
     sidebar.enable = true;
     sidebar.shortPath = true;
@@ -20,6 +31,7 @@ in
       bind index,pager J sidebar-next       
       bind index,pager \CO sidebar-open       # Ctrl-Shift-O - Open Highlighted Mailbox
       bind index,pager B sidebar-toggle-visible
+      bind pager ,g group-reply
 
       set sidebar_delim_chars="/"             # Delete everything up to the last / character
       set sidebar_folder_indent               # Indent folders whose names we've shortened

@@ -2,6 +2,16 @@ export BLOG_ROOT=~/dev/projects/ryan.lahfa.xyz
 export BLOG_POST_TEMPLATE=~/dev/projects/ryan.lahfa.xyz/src/.post.template.md
 export BLOG_POSTS_SRC=~/dev/projects/ryan.lahfa.xyz/src/posts
 
+# TODO: show draft status, updated_at, created_at
+function vlist() {
+  find $BLOG_POSTS_SRC -type f -name "*.md" -print0 | xargs -0 basename -a | cut -d "-" -f4- | cut -d "." -f1
+}
+
+function vopen() {
+  vchoice=$(vlist | percol --query "$1" --auto-match)
+  vpost "$vchoice"
+}
+
 function vpost()
 {
   local existing_target=$(find $BLOG_POSTS_SRC -type f -name "*-$1.md" | head -1)

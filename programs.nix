@@ -1,8 +1,13 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
+    # Troubleshooting
+    iperf3 pciutils
+    usbutils
+    # Misc
     signal-desktop
     fd
+    fx
     feh
     yq-go
     niv
@@ -16,7 +21,7 @@
     pandoc
     zotero
     # dino
-    multimc
+    polymc # multimc
     pixiecore
     pavucontrol
     pulseeffects-pw
@@ -40,7 +45,8 @@
     elan
     drone-cli
     nodePackages.node2nix
-    raito-dev.nodePackages.lean-language-server
+    nodePackages.pnpm
+    # raito-dev.nodePackages.lean-language-server
     borgbackup
     python39Packages.percol
     libnotify
@@ -57,5 +63,21 @@
     shellcheck
     # mathlibtools
     gnome-network-displays
+    barrier
+    nixpkgs-review
+
+    # Haskell-oriented developement
+    ghc
+    cabal2nix
+    cabal-install
+    haskellPackages.haskell-language-server
+    djview
+    ghidra
+
+    rnix-lsp
+    # Networking
+    # raito-nixpkgs.ripe-atlas-tools
+    sipcalc
+    ipv6calc
   ];
 }

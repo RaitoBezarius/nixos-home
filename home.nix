@@ -2,6 +2,7 @@
 {
   imports = [
     ~/dev/projects/agenix/modules/hm-age.nix
+    ./xorg.nix
     ./shell
     ./emails
     ./theme
@@ -17,6 +18,7 @@
     ./rtorrent.nix
     ./neovim.nix
     ./screen-layouts.nix
+    ./compositor.nix
   ];
  
   # Let Home Manager install and manage itself.

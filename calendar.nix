@@ -1,6 +1,9 @@
 { pkgs, config, ... }:
 let
-  passStore = key: [ "command" "${pkgs.raito-dev.kachpass}/bin/kachpass" key ];
+  kachpass = pkgs.raito-dev.kachpass.mkKachPass {
+    targetKeyring = "@us";
+  };
+  passStore = key: [ "command" "${kachpass}/bin/kachpass" key ];
 in
 {
   imports = [
@@ -21,10 +24,24 @@ in
         conflict_resolution = "a wins";
         metadata = [ "color" "displayname" ];
       };
+      "pair klubrz_kumo" = {
+        a = "klubrz";
+        b = "kumo";
+        collections = [ "from a" ];
+        conflict_resolution = "a wins";
+        metadata = [ "color" "displayname" ];
+      };
       "pair local_kumo" = {
         a = "local";
         b = "kumo";
         collections = [ "from a" "from b" ];
+        conflict_resolution = "b wins";
+        metadata = [ "color" "displayname" ];
+      };
+      "pair local_klubrz" = {
+        a = "local";
+        b = "klubrz";
+        collections = [ "from b" ];
         conflict_resolution = "b wins";
         metadata = [ "color" "displayname" ];
       };
@@ -39,6 +56,12 @@ in
         url = "https://kumo.lahfa.xyz/remote.php/dav";
         username = "raito";
         "password.fetch" = passStore "Private/nextCloud/raito/vdirsyncer";
+      };
+      "storage klubrz" = {
+        type = "caldav";
+        url = "https://nuage.beta.rz.ens.wtf/remote.php/dav";
+        username = "Keycloak-920b8639-e406-4f63-930d-efe44c3f79dd";
+        "password.fetch" = passStore "ENS/Reseau/Nextcloud/raito/vdirsyncer";
       };
       "storage local" = {
         type = "filesystem";

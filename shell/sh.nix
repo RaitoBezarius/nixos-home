@@ -4,7 +4,7 @@ let
 in
 {
   xdg.configFile."zsh/personal".source = config.lib.file.mkOutOfStoreSymlink ../dotfiles/zsh;
-  age.secrets.work-zshrc.file = ../secrets/work-zshrc.age;
+  # age.secrets.work-zshrc.file = ../secrets/work-zshrc.age;
 
   programs.zsh = {
     enable = true;
@@ -16,7 +16,7 @@ in
       setopt extendedglob nomatch notify
       unsetopt autocd beep
 
-      export SECRET_ZSHRC="${config.age.secrets.work-zshrc.path}"
+      # export SECRET_ZSHRC="blurb"
       source ${config.xdg.configHome}/zsh/personal/init.zsh
     '';
 

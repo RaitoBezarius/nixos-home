@@ -16,7 +16,7 @@ function yellow {
     printf "${YELLOW}$@${NC}\n"
 }
 
-plugins=('nix' 'broot' 'blog' 'misc' 'secrets')
+plugins=('nix' 'broot' 'blog' 'misc') # secrets module.
 
 for p in $plugins; do
 	source $BASE/$p.zsh

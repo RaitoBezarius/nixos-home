@@ -1,7 +1,7 @@
 { config, ... }:
 {
   imports = [
-    ~/dev/projects/agenix/modules/hm-age.nix
+    # /home/raito/dev/projects/agenix/modules/hm-age.nix
     ./xorg.nix
     ./shell
     ./emails
@@ -28,7 +28,7 @@
   home.homeDirectory = "/home/raito";
 
   # Secrets keys
-  age.sshKeyPaths = [ "${config.home.homeDirectory}/.ssh/id_rsa" ];
+  # age.sshKeyPaths = [ "${config.home.homeDirectory}/.ssh/id_rsa" ];
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage

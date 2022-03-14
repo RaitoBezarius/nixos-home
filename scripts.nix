@@ -1,11 +1,10 @@
 { config, pkgs, ... }:
 {
-  age.secrets.rzDroneToken.file = ./secrets/rzDroneToken.age;
+  # age.secrets.rzDroneToken.file = ./secrets/rzDroneToken.age;
   home.packages = [
     (pkgs.writeScriptBin "rz-drone" ''
       #!${pkgs.stdenv.shell}
       export DRONE_SERVER=https://drone.rz.ens.wtf
-      export DRONE_TOKEN=$(cat ${config.age.secrets.rzDroneToken.path})
       ${pkgs.drone-cli}/bin/drone "$@"
     '')
     (pkgs.writeScriptBin "pnotify" ''

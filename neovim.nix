@@ -16,8 +16,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "Julian";
       repo = "lean.nvim";
-      rev = "34ee15be140632022be8dcac9bde60d800127d8e";
-      sha256 = "sha256-81LciSH6fer0ztSGz6lj6DQtKT8SxnsY9GZwBsr9RAA=";
+      rev = "aaa6d059aed04ee8b501158df631600ec7ec86c4";
+      sha256 = "sha256-GLqfLA7V4LhLwc1ccpHNSzKWOYEcFIafU259/DqDLiY=";
     };
   };
 in
@@ -61,6 +61,7 @@ in
       vim-pandoc-syntax
       coc-nvim
       coc-pyright
+      coc-tsserver
       semshi
       oceanic-next
       editorconfig-vim
@@ -178,6 +179,16 @@ in
       command! -nargs=0 Prettier :CocCommand prettier.formatFile
       vmap <leader>f  <Plug>(coc-format-selected)
       nmap <leader>f  <Plug>(coc-format-selected)
+
+      " For ctrlp
+      if executable('rg')
+        set grepprg=rg\ --color=never
+        let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+        let g:ctrlp_use_caching = 0
+      else
+        let g:ctrlp_clear_cache_on_exit = 0
+        let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|node_modules)$'
+      endif
 
       lua<<EOF
         ${builtins.readFile /home/raito/dotfiles/nvim/lua/lean.lua}

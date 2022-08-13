@@ -28,6 +28,7 @@
     bind
     nixfmt
     tasksh
+    taskwarrior-tui
     super-slicer
     unzip
     ripgrep
@@ -63,7 +64,6 @@
     shellcheck
     # mathlibtools
     gnome-network-displays
-    barrier
     nixpkgs-review
 
     # Haskell-oriented developement
@@ -79,5 +79,8 @@
     # raito-nixpkgs.ripe-atlas-tools
     sipcalc
     ipv6calc
+
+    gh
+    tea
   ];
 }

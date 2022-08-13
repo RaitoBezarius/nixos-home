@@ -3,7 +3,13 @@ icons = "awesome5"
 
 [[block]]
 block = "custom"
-command = '''ls ~/.local/share/msmtp/queue | wc -l | printf "Mails in queue: %d"'''
+command = '''is_paused=$(dunstctl is-paused); if [[ "${is_paused}" == "true" ]]; then echo "DND"; else echo "No DND"; fi'''
+on_click = "dunstctl set-paused toggle"
+interval = 15
+
+[[block]]
+block = "custom"
+command = '''printf "Mails in queue: %d" $(ls ~/.local/share/msmtp/queue/*.mail | wc -l)'''
 on_click = "msmtp-queue -r"
 interval = 15
 

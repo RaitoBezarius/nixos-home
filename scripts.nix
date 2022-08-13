@@ -19,5 +19,13 @@
       #!${pkgs.stdenv.shell}
       echo | ${openssl} s_client -connect $1:$2 |& ${openssl} x509 -fingerprint -noout -sha256 | cut -d'=' -f2 | sed 's/://g' | tr '[:upper:]' '[:lower:]'
     ''))
+    (pkgs.writeScriptBin "get_ssl_spki_sha256" (
+      let
+        openssl = "${pkgs.openssl}/bin/openssl";
+      in
+    ''
+      #!${pkgs.stdenv.shell}
+      echo | ${openssl} s_client -connect $1:$2 |& ${openssl} x509 -pubkey -noout | ${openssl} pkey -pubin -outform der | ${openssl} dgst -sha256 -hex | cut -d' ' -f2 | sed 's/://g' | tr '[:upper:]' '[:lower:]'
+    ''))
   ];
 }

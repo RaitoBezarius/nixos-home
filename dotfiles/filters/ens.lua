@@ -59,23 +59,23 @@ end
 
 function dg_filtering(account)
 	dg = account['INBOX/DG']:select_all()
-	dg:contain_subject('[degette]'):move_messages(account['INBOX/DG/degette'])
-	dg:contain_subject("[degetteweb-tg]"):move_messages(account['INBOX/DG/degette/TG'])
-	dg:contain_from("degette"):move_messages(account['INBOX/DG/degette'])
+	-- dg:contain_subject('[degette]'):move_messages(account['INBOX/DG/degette'])
+	-- dg:contain_subject("[degetteweb-tg]"):move_messages(account['INBOX/DG/degette/TG'])
+	-- dg:contain_from("degette"):move_messages(account['INBOX/DG/degette'])
 	dg:contain_to("tous@clipper.ens.fr"):copy_messages(account['INBOX/Tous/Clipper'])
-	dg:contain_to("tous@clipper.ens.fr"):move_messages(account['INBOX/DG/Communications'])
+	-- dg:contain_to("tous@clipper.ens.fr"):move_messages(account['INBOX/DG/Communications'])
 
-	dg_a = has_attachment(dg:is_larger(2048))
-	garanties_logements = dg_a * (dg:contain_subject('bourse') + dg:contain_body('bourse') + dg:contain_subject('décharge') + dg:contain_body('décharge'))
-	garanties_logements:move_messages(account['INBOX/DG/TG/Garanties'])
+	-- dg_a = has_attachment(dg:is_larger(2048))
+	-- garanties_logements = dg_a * (dg:contain_subject('bourse') + dg:contain_body('bourse') + dg:contain_subject('décharge') + dg:contain_body('décharge'))
+	-- garanties_logements:move_messages(account['INBOX/DG/TG/Garanties'])
 
-	filter(dg, 'degette@dg.ens.fr', account['INBOX/DG/degette'])
+	-- filter(dg, 'degette@dg.ens.fr', account['INBOX/DG/degette'])
 end
 
 function git_filtering(account)
 	git = account['INBOX/Git']:select_all()
 
-	git:contain_subject('degetteweb'):move_messages(account['INBOX/DG/degette'])
+	-- git:contain_subject('degetteweb'):move_messages(account['INBOX/DG/degette'])
 end
 
 function research_filter(todos, account)
@@ -117,11 +117,12 @@ function ens_filtering(account)
 	-- Move KDE emails
 	filter(todos, 'klub-dev@lists.ens.psl.eu', account['INBOX/KDE'])
 
+	-- I am not DG anymore.
 	-- Move DG emails to DG.
-	filter(todos, 'dg@ens.fr', account['INBOX/DG'])
-	filter(todos, 'dg@ens.psl.eu', account['INBOX/DG'])
-	filter(todos, 'dg@clipper.ens.fr', account['INBOX/DG'])
-	filter(todos, 'degette@dg.ens.fr', account['INBOX/DG'])
+	-- filter(todos, 'dg@ens.fr', account['INBOX/DG'])
+	-- filter(todos, 'dg@ens.psl.eu', account['INBOX/DG'])
+	-- filter(todos, 'dg@clipper.ens.fr', account['INBOX/DG'])
+	-- filter(todos, 'degette@dg.ens.fr', account['INBOX/DG'])
 	dg_filtering(account)
 
 	-- Move Nuit emails to Nuit.

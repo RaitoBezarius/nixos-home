@@ -22,14 +22,12 @@ in
 
     shellAliases = {
       agenix = "nix run github:ryantm/agenix --";
-
       # TODO: write up a generic solution for network-based sandboxing.
       chackens = "firejail --x11 --netns=hackens --dns=192.168.1.1 --private-bin=chromium --private --private-tmp --noprofile chromium http://hackens-desktop1.lan:5000";
-
       # Jail zoom.
       zoom = "nix-shell -p zoom-us --run \"firejail --private=$HOME/.zoom zoom\"";
 
-      ka = "kilall";
+      ka = "killall";
       mkd = "mkdir -pv";
 
       ca = "khal interactive";
@@ -78,8 +76,15 @@ in
 
       sieve-xyz = "pass Private/Mail/V6/ryan@lahfa.xyz | sieve-connect -s kurisu.lahfa.xyz -u ryan@lahfa.xyz";
 
+      tt = "taskwarrior-tui";
+
+      nsp = "nix-shell -p";
+      ns = "nix-shell";
       nrs = "sudo nixos-rebuild switch";
       nrt = "sudo nixos-rebuild test";
+
+      lnb = "NIX_PATH=\"nixpkgs=$LOCAL_NIXPKGS_CHECKOUT\" nix-build '<nixpkgs>' --no-out-link -A $1";
+      lns = "NIX_PATH=\"nixpkgs=$LOCAL_NIXPKGS_CHECKOUT\" nix-shell -p $1";
     };
 
     dirHashes = {

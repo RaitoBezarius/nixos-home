@@ -1,3 +1,6 @@
+# Local development of nixpkgs
+export LOCAL_NIXPKGS_CHECKOUT="$HOME/dev/projects/nixpkgs"
+
 function upc() (
 	set -eo pipefail
 	{ sudo unbuffer nixos-rebuild build --upgrade |& nom && nvd diff ~nix-now result; } || (unlink result &>/dev/null; exit 1)

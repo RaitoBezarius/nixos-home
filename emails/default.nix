@@ -21,11 +21,56 @@ let
     find ${config.accounts.email.maildirBasePath}/$1 -type d -exec bash -c 'd1=("$1"/cur/); d2=("$1"/*/); [[ ! -e "$d1" && -e "$d2" ]]' _ {} \; -printf "%p "
   '';
   autodiscoverMailboxes = path: "mailboxes `${list-mailboxes}/bin/list-mailboxes ${path}`";
+  mkKurisuMailbox = { realName, address, userName ? address, mailboxPath, namedMailbox, passStorePath, notificationPrefix }: {
+    inherit realName address userName;
+    mbsync = {
+      enable = true;
+      create = "both";
+    };
+    msmtp.enable = true;
+    neomutt = {
+      enable = true;
+      extraConfig = ''
+        ${autodiscoverMailboxes mailboxPath}
+        named-mailboxes ${namedMailbox} +Inbox
+      '';
+    };
+    notmuch.enable = true;
+    passwordCommand = passStore.user passStorePath;
+
+    imapnotify = {
+      enable = true;
+      boxes = [ "Inbox" ];
+      onNotify = "${pkgs.isync}/bin/mbsync ${mailboxPath}";
+      onNotifyPost = ''
+        ${pkgs.notmuch}/bin/notmuch new \
+        && ${pkgs.libnotify}/bin/notify-send "${notificationPrefix}: New mail arrived."
+      '';
+    };
+
+    imap = {
+      host = "kurisu.lahfa.xyz";
+      tls.enable = true;
+    };
+    smtp = {
+      host = "kurisu.lahfa.xyz";
+      port = 587;
+      tls.enable = true;
+      tls.useStartTls = true;
+    };
+
+    signature = {
+      showSignature = "append";
+      text = ''
+        ${realName}
+      '';
+    };
+  };
 in
   with utils;
 {
   imports = [
-    # ./afew.nix
+    ./afew.nix
     ./mailcap.nix
     ./neomutt.nix
     ./mailto.nix
@@ -83,8 +128,10 @@ in
 
             folder-hook . "set sort=reverse-date ; set sort_aux=date"
             folder-hook Inbox/DG "set sort=threads ; set sort_aux = reverse-last-date-received"
-            reply-hook "~t dg@ens.fr" "my_hdr From: Ryan Lahfa — DG <dg@ens.fr> ; my_hdr cc: dg@ens.fr"
-            reply-hook "~t dg@ens.psl.eu" "my_hdr From: Ryan Lahfa — DG <dg@ens.fr> ; my_hdr cc: dg@ens.fr"
+
+            # Je ne suis plus DG!
+            # reply-hook "~t dg@ens.fr" "my_hdr From: Ryan Lahfa — DG <dg@ens.fr> ; my_hdr cc: dg@ens.fr"
+            # reply-hook "~t dg@ens.psl.eu" "my_hdr From: Ryan Lahfa — DG <dg@ens.fr> ; my_hdr cc: dg@ens.fr"
           '';
         };
         userName = "rlahfa";
@@ -127,54 +174,42 @@ in
         };
         passwordCommand = passStore.user "Private/Mail/Thorfinn/GMail";
       };
-      ryan-xyz = {
+      mangaki = mkKurisuMailbox {
+        realName = "${realName} — Mangaki";
+        address = obfuscate "rf.ikagnam@nayr";
+
+        mailboxPath = "mangaki";
+        namedMailbox = "Mangaki-Inbox";
+        passStorePath = obfuscate "rf.ikagnam@nayr/ikagnaM";
+        notificationPrefix = "Mangaki";
+      };
+      nixos-paris = mkKurisuMailbox {
+        realName = "${realName} — NixOS Paris";
+        address = obfuscate "sirap.soxin@nayr";
+
+        mailboxPath = "nixos-paris";
+        namedMailbox = "NixOS-Paris-Inbox";
+        passStorePath = obfuscate "sirap.soxin@nayr/SOxiN";
+        notificationPrefix = "NixOS";
+      };
+      dgnum = mkKurisuMailbox {
+        realName = "${realName} — Expert DGNum";
+        address = obfuscate "ue.mungd@nayr";
+
+        mailboxPath = "dgnum";
+        namedMailbox = "DGNum-Inbox";
+        passStorePath = obfuscate "ue.mungd@nayr/liaM/etavirP";
+        notificationPrefix = "DGNum";
+      };
+      ryan-xyz = mkKurisuMailbox {
         inherit realName;
-        signature = {
-          showSignature = "append";
-          text = ''
-            ${realName}
-          '';
-        };
 
         address = obfuscate "zyx.afhal@nayr";
-        aliases = [ (obfuscate "zyx.afhal@nimda") ];
 
-        userName = obfuscate "zyx.afhal@nayr";
-        imap = {
-          host = "kurisu.lahfa.xyz";
-          tls.enable = true;
-        };
-        smtp = {
-          host = "kurisu.lahfa.xyz";
-          port = 587;
-          tls.enable = true;
-          tls.useStartTls = true;
-        };
-
-        imapnotify = {
-          enable = true;
-          boxes = [ "Inbox" ];
-          onNotify = "${pkgs.isync}/bin/mbsync ryan-xyz";
-          onNotifyPost = ''
-            ${pkgs.notmuch}/bin/notmuch new \
-            && ${pkgs.libnotify}/bin/notify-send "Personal: New mail arrived."
-          '';
-        };
-        mbsync = {
-          enable = true;
-          create = "both";
-        };
-        msmtp.enable = true;
-        neomutt = {
-          enable = true;
-          extraConfig = ''
-            ${autodiscoverMailboxes "ryan-xyz"}
-            unmailboxes +Inbox
-            named-mailboxes Personal-Inbox +Inbox
-          '';
-        };
-        notmuch.enable = true;
-        passwordCommand = passStore.user "Private/Mail/V6/ryan@lahfa.xyz";
+        mailboxPath = "ryan-xyz";
+        namedMailbox = "Personal-Inbox";
+        passStorePath = obfuscate "zyx.afhal@nayr/6V/liaM/etavirP";
+        notificationPrefix = "Personal";
       };
     };
   };

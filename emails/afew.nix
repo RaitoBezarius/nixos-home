@@ -1,18 +1,18 @@
 { pkgs, lib, ... }:
 with builtins;
 let
-  privateFilters = (import ./filters/private.nix { inherit lib; }).filters;
+  privateFilters = [ ]; # (import ./filters/private.nix { inherit lib; }).filters;
   filterLib = import ./filters/lib.nix { inherit lib; };
   callPackage = lib.callPackageWith filterLib;
   packagedFilters = map (p: callPackage p {}) [
-    ./filters/sysadmin.nix
-    ./filters/maths.nix
-    ./filters/misc.nix
-    ./filters/scop.nix
-    ./filters/personal.nix
-    ./filters/dev.nix
-    ./filters/spammy.nix
-    ./filters/videogames.nix
+    # ./filters/sysadmin.nix
+    # ./filters/maths.nix
+    # ./filters/misc.nix
+    # ./filters/scop.nix
+    # ./filters/personal.nix
+    # ./filters/dev.nix
+    # ./filters/spammy.nix
+    # ./filters/videogames.nix
   ] ++ privateFilters;
   extraFilters = [
     (filterLib.mkSpamLike [

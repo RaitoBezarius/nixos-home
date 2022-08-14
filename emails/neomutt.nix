@@ -11,7 +11,8 @@ in
   programs.neomutt = {
     enable = true;
     package = pkgs.enableDebugging (pkgs.neomutt.overrideAttrs (old: {
-      configureFlags = old.configureFlags ++ lib.optional useASAN "--asan";
+      configureFlags = old.configureFlags ++ [ "--with-kyotocabinet=${pkgs.kyotocabinet}" "--zstd" "--mixmaster" ] ++ lib.optional useASAN "--asan";
+      buildInputs = old.buildInputs ++ [ pkgs.zstd ];
 #      src = pkgs.fetchFromGitHub {
 #        owner = "neomutt";
 #        repo = "neomutt";
@@ -41,6 +42,11 @@ in
       set sidebar_sort_method = "path"
       set sidebar_new_mail_only = no
       set sidebar_non_empty_mailbox_only = no
+
+      set header_cache_backend='kyotocabinet'
+      set header_cache='~/mail/hcache'
+      set header_cache_compress_method = "zstd"
+      set header_cache_compress_level = 10
 
       alternative_order text/plain text/html
       set mailcap_path = ~/.config/mailcap

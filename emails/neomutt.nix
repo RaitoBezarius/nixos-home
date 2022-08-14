@@ -12,12 +12,12 @@ in
     enable = true;
     package = pkgs.enableDebugging (pkgs.neomutt.overrideAttrs (old: {
       configureFlags = old.configureFlags ++ lib.optional useASAN "--asan";
-      src = pkgs.fetchFromGitHub {
-        owner = "neomutt";
-        repo = "neomutt";
-        rev = "fd5745f56fd4c3a80fcf5dec42a0db2f1573b4c5";
-        sha256 = "sha256-vAS9omz3AGAMdsnSgsqXTGTQaY1aev4MEVvsC+W6j/k=";
-      };
+#      src = pkgs.fetchFromGitHub {
+#        owner = "neomutt";
+#        repo = "neomutt";
+#        rev = "fd5745f56fd4c3a80fcf5dec42a0db2f1573b4c5";
+#        sha256 = "sha256-vAS9omz3AGAMdsnSgsqXTGTQaY1aev4MEVvsC+W6j/k=";
+#      };
       patches = [];
     }));
     sidebar.width = 40;

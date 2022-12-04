@@ -4,7 +4,7 @@
     raito = import (builtins.fetchTarball "https://github.com/RaitoBezarius/nixexprs/archive/master.tar.gz") {
       inherit pkgs;
     };
-    raito-dev = import (~/dev/projects/nur) {
+    raito-dev = import (~/dev/github.com/RaitoBezarius/nixexprs) {
       inherit pkgs;
     };
     rz = import (~/dev/projects/ens/club_reseau/git/nur) {

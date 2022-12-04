@@ -6,7 +6,7 @@
     ./shell
     ./emails
     ./theme
-    ./calendar.nix
+    ./calendar
     ./dotfiles.nix
     ./codium.nix
     ./gpg.nix
@@ -26,6 +26,8 @@
 
   home.username = "raito";
   home.homeDirectory = "/home/raito";
+
+  manual.manpages.enable = false;
 
   # Secrets keys
   # age.sshKeyPaths = [ "${config.home.homeDirectory}/.ssh/id_rsa" ];

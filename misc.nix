@@ -5,7 +5,7 @@
     enable = true;
     colorTheme = "dark-blue-256";
   };
-  home.file.".taskrc".source = /home/raito/dotfiles/.taskrc;
+  # home.file.".taskrc".source = /home/raito/dotfiles/.taskrc;
 
   # Music player
   services.mpd = {
@@ -23,8 +23,8 @@
 
   # Music library
   programs.beets.enable = true;
-  xdg.configFile."beets/config.yaml".source =
-    lib.mkForce /home/raito/dotfiles/.config/beets/config.yaml;
+  # xdg.configFile."beets/config.yaml".source =
+  #  lib.mkForce /home/raito/dotfiles/.config/beets/config.yaml;
 
   # Terminal
   programs.kitty = {

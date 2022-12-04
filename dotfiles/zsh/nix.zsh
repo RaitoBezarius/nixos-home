@@ -1,5 +1,5 @@
 # Local development of nixpkgs
-export LOCAL_NIXPKGS_CHECKOUT="$HOME/dev/projects/nixpkgs"
+export LOCAL_NIXPKGS_CHECKOUT="$HOME/dev/github.com/NixOS/nixpkgs"
 
 function upc() (
 	set -eo pipefail

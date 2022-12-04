@@ -21,10 +21,10 @@
     pandoc
     zotero
     # dino
-    polymc # multimc
+    prismlauncher # multimc
     pixiecore
     pavucontrol
-    pulseeffects-pw
+    easyeffects
     bind
     nixfmt
     tasksh

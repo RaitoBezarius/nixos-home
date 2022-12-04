@@ -9,7 +9,7 @@ smart-pinentry = pkgs.writeScriptBin "pinentry" ''
         
         case $PINENTRY_USER_DATA in
         gtk)
-          exec ${pkgs.pinentry.gtk2}/bin/pinentry "$@"
+          exec ${pkgs.pinentry-qt}/bin/pinentry-qt "$@"
           ;;
         none)
           exit 1 # do not ask for passphrase

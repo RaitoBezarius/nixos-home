@@ -67,6 +67,7 @@ in
       nodePackages.prettier
       xclip # For Xorg
       wl-clipboard # For Wayland
+      nil
     ];
     extraPython3Packages = (ps: with ps; [
       black
@@ -185,10 +186,10 @@ in
       endif
 
       lua<<EOF
-        ${builtins.readFile /home/raito/dotfiles/nvim/lua/lean.lua}
+        ${builtins.readFile ./dotfiles/nvim/lua/lean.lua}
       EOF
     '';
   };
 
-  xdg.configFile."nvim/coc-settings.json".text = builtins.readFile /home/raito/dotfiles/coc-settings.json;
+  xdg.configFile."nvim/coc-settings.json".text = builtins.readFile ./dotfiles/coc-settings.json;
 }

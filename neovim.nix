@@ -10,16 +10,6 @@ let
       sha256 = "sha256-JG0QPtEi33MNZrIJoevrJ3W8xEs7sHdtWczZIM3vk64=";
     };
   };*/
-  lean-nvim = pkgs.vimUtils.buildVimPlugin {
-    name = "lean-nvim";
-    buildPhase = ":";
-    src = pkgs.fetchFromGitHub {
-      owner = "Julian";
-      repo = "lean.nvim";
-      rev = "aaa6d059aed04ee8b501158df631600ec7ec86c4";
-      sha256 = "sha256-GLqfLA7V4LhLwc1ccpHNSzKWOYEcFIafU259/DqDLiY=";
-    };
-  };
 in
 {
   programs.neovim = {
@@ -67,19 +57,21 @@ in
       editorconfig-vim
       vim-python-pep8-indent
       vim-cue
+
+      vim-docbk
+      vim-docbk-snippets
     ];
     extraPackages = with pkgs; [
-      (python3.withPackages (ps: with ps; [
-        black
-        flake8
-        isort
-      ]))
       rust-analyzer
       nodePackages.svelte-language-server
       nodePackages.prettier
+      xclip # For Xorg
+      wl-clipboard # For Wayland
     ];
     extraPython3Packages = (ps: with ps; [
-
+      black
+      flake8
+      isort
     ]);
     extraConfig = ''
       " Classical options
@@ -119,9 +111,9 @@ in
 
       let mapleader = ","
       " toggle line numbers
-      nnoremap <silent> <leader>n :set number! number?<CR>
+      nnoremap <silent> <leader>l :set number! number?<CR>
       " remove highlighting
-      nmap <leader>l :nohlsearch<CR>
+      nmap <leader>n :nohlsearch<CR>
 
       " Use <C-l> for trigger snippet expand.
       imap <C-l> <Plug>(coc-snippets-expand)
@@ -172,6 +164,8 @@ in
 
       " For pandoc
       let g:pandoc#modules#disabled = ["spell"]
+      let g:pandoc#command#autoexec_command = "Pandoc! pdf"
+      let g:pandoc#command#autoexec_on_writes = 1
 
       " For prettier
       let g:prettier#quickfix_enabled = 0

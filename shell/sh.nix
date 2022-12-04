@@ -10,7 +10,7 @@ in
     enable = true;
     enableCompletion = true;
     enableAutosuggestions = true;
-    history = { save = 100000; extended = true; ignoreDups = true; };
+    history = { save = 1000000; extended = true; ignoreDups = true; };
     # defaultKeymap = "vicmd";
     initExtra = ''
       setopt extendedglob nomatch notify
@@ -45,7 +45,7 @@ in
       v = "$EDITOR";
       sdn = "shutdown now";
 
-      irc = ''ssh -t playground "tmux attach"'';
+      irc = ''ssh -t raito@core01.v6.lahfa.xyz "tmux attach"'';
       SU = "systemctl --user";
       SS = "sudo systemctl";
 
@@ -68,6 +68,8 @@ in
 
       decrypt_mailserver= "pass Private/Askeladd/Mail/LUKS | ssh root@10.32.64.102 \"cryptsetup-askpass\"";
 
+      decrypt_amadeus = "pass DC1/Amadeus/FDE | ssh -4 -p 2222 root@kurisu.lahfa.xyz";
+
       fetch-emails = "mbsync --all && notmuch new && afew -t -n -v";
 
       mpvl = "mpv --loop-file $1";
@@ -80,11 +82,16 @@ in
 
       nsp = "nix-shell -p";
       ns = "nix-shell";
+
       nrs = "sudo nixos-rebuild switch";
       nrt = "sudo nixos-rebuild test";
 
+      # Local build
       lnb = "NIX_PATH=\"nixpkgs=$LOCAL_NIXPKGS_CHECKOUT\" nix-build '<nixpkgs>' --no-out-link -A $1";
+      # Local shell
       lns = "NIX_PATH=\"nixpkgs=$LOCAL_NIXPKGS_CHECKOUT\" nix-shell -p $1";
+      # Local test
+      ltt = ''NIX_PATH=\"nixpkgs=$LOCAL_NIXPKGS_CHECKOUT\" nix-build --no-out-link "$LOCAL_NIXPKGS_CHECKOUT/nixos/tests/$1"'';
     };
 
     dirHashes = {
@@ -92,9 +99,11 @@ in
       nix-now = "/run/current-system";
       nix-boot = "/nix/var/nix/profiles/system";
       cfg-sys = "/etc/nixos";
-      cfg-home = "${config.home.homeDirectory}/dev/projects/personal-configuration/nixos-home";
+      cfg-home = "${config.home.homeDirectory}/dev/github.com/RaitoBezarius/nixos-home";
+      lnixpkgs = "$LOCAL_NIXPKGS_CHECKOUT";
+      pp = "${config.home.homeDirectory}/dev/github.com/RaitoBezarius";
       ens = "${config.home.homeDirectory}/dev/projects/ens";
-      newtype = "${config.home.homeDirectory}/dev/projects/newtype";
+      newtype = "${config.home.homeDirectory}/dev/git.newtype.fr";
     };
     plugins = [
       {

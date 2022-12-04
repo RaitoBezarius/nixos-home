@@ -21,6 +21,9 @@ if command -v dbus-update-activation-environment >/dev/null 2>&1; then
 fi
 
 ibus-daemon -drx &
+
+# Ensure user keyring is linked to the session.
+keyctl link @u @s
 # eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
 # export SSH_AUTH_SOCK
 

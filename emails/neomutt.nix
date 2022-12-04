@@ -43,16 +43,21 @@ in
       set sidebar_new_mail_only = no
       set sidebar_non_empty_mailbox_only = no
 
-      set header_cache_backend='kyotocabinet'
+      set header_cache_backend='lmdb'
       set header_cache='~/mail/hcache'
       set header_cache_compress_method = "zstd"
       set header_cache_compress_level = 10
 
       alternative_order text/plain text/html
       set mailcap_path = ~/.config/mailcap
+
+      set mime_forward = no
+      set forward_attachments = yes
       macro pager \cb "<pipe-message> ${pkgs.urlscan}/bin/urlscan<Enter>" "call urlscan to extract URLs out of a message"
       macro index,pager O "<shell-escape>mbsync -a<enter>" "run mbsync to sync all emails"
       macro attach 'V' "<pipe-entry>iconv -c --to-code=UTF8 > ~/.cache/mutt/mail.html<enter><shell-escape>$BROWSER ~/.cache/mutt/mail.html<enter>"
+
+      auto_view text/html image/*
 
       ${colorscheme}
     '';

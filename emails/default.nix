@@ -36,7 +36,7 @@ let
       '';
     };
     notmuch.enable = true;
-    passwordCommand = passStore.user passStorePath;
+    passwordCommand = passStore.defaultSession passStorePath;
 
     imapnotify = {
       enable = true;
@@ -145,10 +145,10 @@ in
           port = 465;
         };
         notmuch.enable = true;
-        passwordCommand = passStore.user "ENS/SPI";
+        passwordCommand = passStore.defaultSession "ENS/SPI";
         imapnotify = {
           enable = true;
-          boxes = [ "INBOX" "INBOX/DG" ];
+          boxes = [ "INBOX" ];
           onNotify = "${pkgs.isync}/bin/mbsync ens-fr";
           onNotifyPost = ''
               ${pkgs.notmuch}/bin/notmuch new \
@@ -172,7 +172,7 @@ in
             named-mailboxes GMail-Inbox +Inbox
           '';
         };
-        passwordCommand = passStore.user "Private/Mail/Thorfinn/GMail";
+        passwordCommand = passStore.defaultSession "Private/Mail/Thorfinn/GMail";
       };
       mangaki = mkKurisuMailbox {
         realName = "${realName} — Mangaki";

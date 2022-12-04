@@ -128,10 +128,11 @@ in
 
             folder-hook . "set sort=reverse-date ; set sort_aux=date"
             folder-hook Inbox/DG "set sort=threads ; set sort_aux = reverse-last-date-received"
-
-            # Je ne suis plus DG!
+            # Je ne suis plus DG.
             # reply-hook "~t dg@ens.fr" "my_hdr From: Ryan Lahfa — DG <dg@ens.fr> ; my_hdr cc: dg@ens.fr"
             # reply-hook "~t dg@ens.psl.eu" "my_hdr From: Ryan Lahfa — DG <dg@ens.fr> ; my_hdr cc: dg@ens.fr"
+            # TODO: finir les alias hackENS
+            reply-hook "~t hackens@clipper.ens.fr" "my_hdr From: Ryan Lahfa — responsable hackENS <hackens@ens.fr> ; my_hdr cc: hackens@ens.fr"
           '';
         };
         userName = "rlahfa";

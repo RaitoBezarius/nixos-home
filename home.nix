@@ -16,7 +16,7 @@
     ./scripts.nix
     ./programs.nix
     ./rtorrent.nix
-    ./neovim.nix
+    ./editor
     ./screen-layouts.nix
     ./compositor.nix
   ];

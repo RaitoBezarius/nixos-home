@@ -38,7 +38,6 @@
     xournal
     evince
     python3
-    poetry
     # raito-dev.uhk-agent
     imapfilter
     python38Packages.vdirsyncer
@@ -74,7 +73,6 @@
     djview
     ghidra
 
-    rnix-lsp
     # Networking
     # raito-nixpkgs.ripe-atlas-tools
     sipcalc

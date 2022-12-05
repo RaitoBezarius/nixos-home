@@ -22,7 +22,7 @@ block = "uptime"
 
 [[block]]
 block = "net"
-device = "wlp4s0"
+device = "wlp3s0"
 format = "{ssid} {signal_strength} {ip} {frequency}"
 format_alt = "{ssid} {ipv6} {speed_down;K*b}"
 interval = 20
@@ -30,8 +30,17 @@ hide_inactive = true
 
 [[block]]
 block = "net"
-device = "enp2s0"
+device = "enp0s31f6"
 format = "{bitrate} {ip}"
 format_alt = "{ipv6} {speed_up;K*b} {speed_down;K*b}"
 interval = 20
 hide_inactive = true
+
+[[block]]
+block = "net"
+device = "enp9s0u1"
+format = "{bitrate} {ip}"
+format_alt = "{ipv6} {speed_up;K*b} {speed_down;K*b}"
+interval = 5
+hide_inactive = true
+hide_missing = true

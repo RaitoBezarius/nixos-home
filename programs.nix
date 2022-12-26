@@ -12,9 +12,10 @@
     yq-go
     niv
     git-crypt
+    bitwarden-cli
     gitAndTools.gitFull
     git-lfs
-    khal
+    # TODO (broken): khal
     aerc
     pdftk
     nitrogen
@@ -29,7 +30,7 @@
     nixfmt
     tasksh
     taskwarrior-tui
-    super-slicer
+    # TODO (broken): super-slicer
     unzip
     ripgrep
     reflex

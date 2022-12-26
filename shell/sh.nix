@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: 
+{ config, lib, pkgs, ... }: 
 let
   fetchFromGitHub = pkgs.fetchFromGitHub;
 in
@@ -13,7 +13,7 @@ in
     history = { save = 1000000; extended = true; ignoreDups = true; };
     # defaultKeymap = "vicmd";
     initExtra = ''
-      setopt extendedglob nomatch notify
+      setopt extendedglob nomatch notify autopushd
       unsetopt autocd beep
 
       # export SECRET_ZSHRC="blurb"
@@ -22,8 +22,6 @@ in
 
     shellAliases = {
       agenix = "nix run github:ryantm/agenix --";
-      # TODO: write up a generic solution for network-based sandboxing.
-      chackens = "firejail --x11 --netns=hackens --dns=192.168.1.1 --private-bin=chromium --private --private-tmp --noprofile chromium http://hackens-desktop1.lan:5000";
       # Jail zoom.
       zoom = "nix-shell -p zoom-us --run \"firejail --private=$HOME/.zoom zoom\"";
 
@@ -31,7 +29,7 @@ in
       mkd = "mkdir -pv";
 
       ca = "khal interactive";
-      sync_ca = "vdirsyncer sync";
+      sync_ca = "vsync sync";
 
       mpv = "mpv --input-ipc-server=/tmp/mpvsoc$(date +%s)";
 
@@ -55,6 +53,8 @@ in
       v6 = "curl api6.ipify.org";
       v4 = "curl api.ipify.org";
 
+      phs = "python -m http.server";
+
       ls = "exa";
 
       rtmv = "rsync -avP";
@@ -74,8 +74,6 @@ in
 
       mpvl = "mpv --loop-file $1";
 
-      phub = "nix-prefetch fetchFromGitHub";
-
       sieve-xyz = "pass Private/Mail/V6/ryan@lahfa.xyz | sieve-connect -s kurisu.lahfa.xyz -u ryan@lahfa.xyz";
 
       tt = "taskwarrior-tui";
@@ -83,9 +81,11 @@ in
       nsp = "nix-shell -p";
       ns = "nix-shell";
 
-      nrs = "sudo nixos-rebuild switch";
-      nrt = "sudo nixos-rebuild test";
+      ncg = "sudo nix-collect-garbage --delete-older-than 30d";
+      ncga = "sudo nix-collect-garbage -d";
+      nso = "sudo nix-store --optimise";
 
+      ln = "NIX_PATH=\"nixpkgs=$LOCAL_NIXPKGS_CHECKOUT\"";
       # Local build
       lnb = "NIX_PATH=\"nixpkgs=$LOCAL_NIXPKGS_CHECKOUT\" nix-build '<nixpkgs>' --no-out-link -A $1";
       # Local shell
@@ -99,13 +99,57 @@ in
       nix-now = "/run/current-system";
       nix-boot = "/nix/var/nix/profiles/system";
       cfg-sys = "/etc/nixos";
-      cfg-home = "${config.home.homeDirectory}/dev/github.com/RaitoBezarius/nixos-home";
+      cfg-mono = "${config.home.homeDirectory}/dev/git.newtype.fr/ryan/nixos-configurations";
+      cfg-home = "${config.home.homeDirectory}/dev/git.newtype.fr/ryan/nixos-configurations/home";
       lnixpkgs = "$LOCAL_NIXPKGS_CHECKOUT";
       pp = "${config.home.homeDirectory}/dev/github.com/RaitoBezarius";
       ens = "${config.home.homeDirectory}/dev/projects/ens";
       newtype = "${config.home.homeDirectory}/dev/git.newtype.fr";
+      nc = "${config.home.homeDirectory}/dev/github.com/nix-community";
+      detsys = "${config.home.homeDirectory}/dev/github.com/DeterminateSystems";
+      nixos = "${config.home.homeDirectory}/dev/github.com/NixOS";
+      aggelia = "${config.home.homeDirectory}/dev/git.newtype.fr/ryan/aggelia";
+      lanzaboote = "${config.home.homeDirectory}/dev/github.com/nix-community/lanzaboote";
+      nix-rfcs = "${config.home.homeDirectory}/dev/github.com/NixOS/rfcs";
     };
     plugins = [
+      # https://github.com/idadzie/zsh-presenter-mode
+      {
+        name = "history-search-multi-word";
+        src = fetchFromGitHub {
+          repo = "history-search-multi-word";
+          owner = "zdharma-continuum";
+          rev = "458e75c16db72596e4d7c6a45619dec285ebdcd7";
+          sha256 = "sha256-6B8uoKJm3gWmufsnLJzLEdSm1tQasrs2fUmS0pDsdMw=";
+        };
+      }
+      {
+        name = "git-aliases";
+        src = fetchFromGitHub {
+          repo = "git-aliases";
+          owner = "mdumitru";
+          rev = "c4cfe2cf5cf59a3da6bf3b735a20921a2c06c58d";
+          sha256 = "sha256-640qGgVeFaTIQBgYGY05/4wzMCxni0uWLWtByEFM2tE=";
+        };
+      }
+      {
+        name = "zsh-bitwarden";
+        src = fetchFromGitHub {
+          repo = "zsh-bitwarden";
+          owner = "Game4Move78";
+          rev = "8b32434d18765fe95ffc2191f5fb68100d913de7";
+          sha256 = "sha256-3zuutTUSdf218+jcn2z7yEGMYkg5VewXm9zO43aIYdI=";
+        };
+      }
+      {
+        name = "alias-tips";
+        src = fetchFromGitHub {
+          repo = "alias-tips";
+          owner = "djui";
+          rev = "4d2cf6f10e5080f3273be06b9801e1fd1f25d28d";
+          sha256 = "sha256-0N2DCpMraIXtEc7hMp0OBANNuYhHPLqzJ/hrAFcLma8=";
+        };
+      }
       {
         name = "auto-notify";
         src = fetchFromGitHub {

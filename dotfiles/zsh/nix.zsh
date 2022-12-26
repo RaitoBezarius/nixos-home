@@ -1,30 +1,17 @@
 # Local development of nixpkgs
 export LOCAL_NIXPKGS_CHECKOUT="$HOME/dev/github.com/NixOS/nixpkgs"
 
-function upc() (
-	set -eo pipefail
-	{ sudo unbuffer nixos-rebuild build --upgrade |& nom && nvd diff ~nix-now result; } || (unlink result &>/dev/null; exit 1)
-	if read -q "CHOICE?Upgrade? y/n "; then
-		echo
-		yellow "Switching now to new version."
-		sudo nixos-rebuild switch
-	fi
-	unlink result &>/dev/null
+function nrs() (
+	cd ~cfg-mono
+	colmena apply-local --sudo --verbose
+)
+
+function npr() (
+	cd ~lnixpkgs
+	nixpkgs-review pr --post-result "$1"
 )
 
 function nix-rback() {
 	sudo nix-channel --rollback
 	red "Rollbacking nixpkgs to $(nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version') version."
 }
-
-function hupc() (
-	set -eo pipefail
-	nix-channel --update home-manager
-	{ unbuffer home-manager build "$@" |& nom && nvd diff ~nix-hm result; } || (unlink result &>/dev/null; exit 1)
-	if read -q "CHOICE?Upgrade? y/n "; then
-		echo
-		yellow "Switching now to new version."
-		home-manager switch
-	fi
-	unlink result &>/dev/null
-)

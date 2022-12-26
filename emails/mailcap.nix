@@ -20,7 +20,6 @@ in
     text = ''
       text/html; ${convert-to-md} '%s'; copiousoutput
       image/*; ${pkgs.kitty}/bin/kitty +kitten icat '%s'; copiousoutput
-      ${lesspipe}
       application/pdf; ${zathura-bin} '%s'; test=test -n "$DISPLAY"
       application/x-pdf; ${zathura-bin} '%s'; test=test -n "$DISPLAY"
       application/ics; ${importcal-bin} '%s'; test=test -n "$DISPLAY"

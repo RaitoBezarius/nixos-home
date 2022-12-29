@@ -13,6 +13,7 @@ let
   lspPlugins = with pkgs.vimPlugins; [
     nvim-lspconfig
     fidget-nvim
+    nlsp-settings-nvim
   ];
   autocompletePlugins = with pkgs.vimPlugins; [
     nvim-cmp
@@ -92,7 +93,7 @@ in
     ++ lspPlugins
     ++ autocompletePlugins
     ++ treesitterPlugins
-    ++ cocPlugins
+    # ++ cocPlugins
     ++ pythonPlugins
     ++ themes;
     extraPackages = with pkgs; [

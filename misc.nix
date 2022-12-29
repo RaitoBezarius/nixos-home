@@ -1,5 +1,22 @@
-{ pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 {
+  xdg.userDirs = {
+    enable = true;
+    createDirectories = false;
+    desktop = "${config.home.homeDirectory}/desktop";
+    documents = "${config.home.homeDirectory}/docs";
+    download = "${config.home.homeDirectory}/downloads";
+    music = "${config.home.homeDirectory}/music";
+    pictures = "${config.home.homeDirectory}/pics";
+    publicShare = "${config.home.homeDirectory}/publicShare";
+    videos = "${config.home.homeDirectory}/videos";
+    templates = "${config.home.homeDirectory}/templates";
+    extraConfig = {
+      XDG_IDENTITY_DIR = "${config.home.homeDirectory}/docs/identity";
+      XDG_DEV_DIR = "${config.home.homeDirectory}/dev";
+    };
+  };
+
   # Task manager
   programs.taskwarrior = {
     enable = true;

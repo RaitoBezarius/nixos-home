@@ -27,8 +27,6 @@
   home.username = "raito";
   home.homeDirectory = "/home/raito";
 
-  manual.manpages.enable = false;
-
   # Secrets keys
   # age.sshKeyPaths = [ "${config.home.homeDirectory}/.ssh/id_rsa" ];
 
@@ -40,5 +38,5 @@
   # You can update Home Manager without changing this value. See
   # the Home Manager release notes for a list of state version
   # changes in each release.
-  home.stateVersion = "21.05";
+  home.stateVersion = "23.05";
 }

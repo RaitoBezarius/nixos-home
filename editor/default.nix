@@ -101,6 +101,7 @@ in
       zig
       rust-analyzer
       nodePackages.svelte-language-server
+      nodePackages.pyright
       nodePackages.prettier
       xclip # For Xorg
       wl-clipboard # For Wayland

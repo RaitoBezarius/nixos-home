@@ -41,7 +41,7 @@
     python3
     # raito-dev.uhk-agent
     imapfilter
-    python38Packages.vdirsyncer
+    python3Packages.vdirsyncer
     # sage
     elan
     drone-cli

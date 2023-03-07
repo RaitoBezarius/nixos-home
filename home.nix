@@ -19,6 +19,7 @@
     ./editor
     ./screen-layouts.nix
     ./compositor.nix
+    ./web-browser.nix
   ];
  
   # Let Home Manager install and manage itself.

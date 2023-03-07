@@ -85,7 +85,7 @@ in
       ncga = "sudo nix-collect-garbage -d";
       nso = "sudo nix-store --optimise";
 
-      ln = "NIX_PATH=\"nixpkgs=$LOCAL_NIXPKGS_CHECKOUT\"";
+      lln = "NIX_PATH=\"nixpkgs=$LOCAL_NIXPKGS_CHECKOUT\"";
       # Local build
       lnb = "NIX_PATH=\"nixpkgs=$LOCAL_NIXPKGS_CHECKOUT\" nix-build '<nixpkgs>' --no-out-link -A $1";
       # Local shell
@@ -102,6 +102,7 @@ in
       cfg-mono = "${config.home.homeDirectory}/dev/git.newtype.fr/ryan/nixos-configurations";
       cfg-home = "${config.home.homeDirectory}/dev/git.newtype.fr/ryan/nixos-configurations/home";
       lnixpkgs = "$LOCAL_NIXPKGS_CHECKOUT";
+      gh = "${config.home.homeDirectory}/dev/github.com";
       pp = "${config.home.homeDirectory}/dev/github.com/RaitoBezarius";
       ens = "${config.home.homeDirectory}/dev/projects/ens";
       newtype = "${config.home.homeDirectory}/dev/git.newtype.fr";

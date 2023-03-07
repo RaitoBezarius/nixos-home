@@ -3,7 +3,7 @@ let
   tree-sitter-lean4 = pkgs.callPackage <nixpkgs/pkgs/development/tools/parsing/tree-sitter/grammar.nix> {} {
     language = "lean4";
     version = "2022-08-23";
-    source = pkgs.fetchFromGitHub {
+    src = pkgs.fetchFromGitHub {
       owner = "Julian";
       repo = "tree-sitter-lean";
       rev = "50945b4f7bde98d70ffca850c4e136ce053934df";

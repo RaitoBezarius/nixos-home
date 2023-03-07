@@ -95,6 +95,9 @@ bindsym Shift+Print exec grim - | wl-copy
 bindsym Shift+Alt+Print exec grim -g "$(slurp)" - | wl-copy
 bindsym Print exec --no-startup-id flameshot gui
 
+# Lock the screen
+bindsym $mod+Shift+l exec swaylock -f -c 000000
+
 # Drag floating windows by holding down $mod and left mouse button.
 # Resize them with right mouse button + $mod.
 # Despite the name, also works for non-floating windows.
@@ -122,10 +125,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # Move the focused window with the same, but add Shift
-bindsym $mod+Shift+$left move left
-bindsym $mod+Shift+$down move down
-bindsym $mod+Shift+$up move up
-bindsym $mod+Shift+$right move right
+#bindsym $mod+Shift+$left move left
+#bindsym $mod+Shift+$down move down
+#bindsym $mod+Shift+$up move up
+#bindsym $mod+Shift+$right move right
 # Ditto, with arrow keys
 bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down

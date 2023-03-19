@@ -14,6 +14,7 @@ let
     nvim-lspconfig
     fidget-nvim
     nlsp-settings-nvim
+    vim-ccls
   ];
   autocompletePlugins = with pkgs.vimPlugins; [
     nvim-cmp
@@ -100,6 +101,7 @@ in
       gcc
       zig
       rust-analyzer
+      ccls
       nodePackages.svelte-language-server
       nodePackages.pyright
       nodePackages.prettier

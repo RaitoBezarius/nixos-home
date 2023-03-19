@@ -6,15 +6,19 @@
     usbutils
     # Misc
     signal-desktop
+    libqalculate
     fd
     fx
     feh
     yq-go
     niv
+    pwgen
     git-crypt
     bitwarden-cli
     gitAndTools.gitFull
     git-lfs
+    git-absorb
+    hyperfine
     # TODO (broken): khal
     aerc
     pdftk

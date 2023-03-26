@@ -11,8 +11,25 @@ in
     userEmail = emailUtils.obfuscate "moc.liamg@ppcnaretsam";
     userName = emailUtils.obfuscate "suirazeB otiaR";
 
-    extraConfig.ghq = {
-      root = "~/dev";
+    delta.enable = true;
+    ignores = [
+      ".direnv"
+    ];
+
+    extraConfig = {
+      ghq = {
+        root = "~/dev";
+      };
+      push.autoSetupRemote = true;
+    };
+  };
+
+  programs.gh = {
+    enable = true;
+    enableGitCredentialHelper = true;
+    settings = {
+      git_protocol = "ssh";
+      extensions = [ pkgs.gh-dash pkgs.gh-eco ];
     };
   };
 }

@@ -1,11 +1,11 @@
-{ pkgs, ... }:
+{ osConfig, lib, pkgs, ... }:
 let
   defaultFp = {
     eDP-1 =
       "00ffffffffffff000daec3140000000026190104951f1178027e45935553942823505400000001010101010101010101010101010101da1d56e250002030442d470035ad10000018000000fe004e3134304247412d4541330a20000000fe00434d4e0a202020202020202020000000fe004e3134304247412d4541330a200053";
   };
 in {
-  programs.autorandr = {
+  programs.autorandr = lib.mkIf (osConfig.my.display-server == "xorg") {
     enable = true;
 
     hooks.postswitch = {

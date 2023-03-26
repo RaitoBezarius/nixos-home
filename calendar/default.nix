@@ -1,11 +1,13 @@
-{ pkgs, config, ... }:
+{ lib, osConfig, pkgs, config, ... }:
 let
   kachpass = pkgs.raito-dev.kachpass.mkKachPass {
     targetKeyring = "@us";
   };
   passStore = key: [ "command" "${kachpass}/bin/kachpass" key ];
 in
-{
+# This module requires runtime secrets
+# to interact with the different calendars.
+lib.optionalAttrs osConfig.my.runtime-secrets {
   imports = [
     ./modules/vdirsyncer.nix
   ];

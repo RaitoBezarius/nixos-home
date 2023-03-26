@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ osConfig, config, pkgs, lib, ... }:
 let
   utils = (import ./utils.nix { inherit lib; });
   realName = utils.obfuscate "afhaL nayR";
@@ -68,7 +68,9 @@ let
   };
 in
   with utils;
-{
+# This module requires runtime secrets to
+# fetch the emails and monitor them.
+lib.optionalAttrs osConfig.my.runtime-secrets {
   imports = [
     ./afew.nix
     ./mailcap.nix
@@ -215,4 +217,3 @@ in
     };
   };
 }
-

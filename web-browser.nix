@@ -9,6 +9,7 @@
       { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # uBlock Origin
       { id = "ldlghkoiihaelfnggonhjnfiabmaficg"; } # Alt+Q switcher
       { id = "enjjhajnmggdgofagbokhmifgnaophmh"; } # Resolution Zoom for HiDPI
+      { id = "ekhagklcjbdpajgpjgmbionohlpdbjgc"; } # Zotero Connector
       { id = "dcpihecpambacapedldabdbpakmachpb"; updateUrl = "https://raw.githubusercontent.com/iamadamdev/bypass-paywalls-chrome/master/src/updates/updates.xml"; }
     ];
   };

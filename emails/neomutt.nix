@@ -5,21 +5,18 @@ let
   '';
   virtualboxes = (import ./virtualboxes.nix).virtualboxes;
   colorscheme = (import ./colorscheme.nix).colorscheme;
-  useASAN = true;
+  smokeOutBugs = true;
 in
 {
   programs.neomutt = {
     enable = true;
-    package = pkgs.enableDebugging (pkgs.neomutt.overrideAttrs (old: {
-      configureFlags = old.configureFlags ++ [ "--with-kyotocabinet=${pkgs.kyotocabinet}" "--zstd" "--mixmaster" ] ++ lib.optional useASAN "--asan";
-      buildInputs = old.buildInputs ++ [ pkgs.zstd ];
-#      src = pkgs.fetchFromGitHub {
-#        owner = "neomutt";
-#        repo = "neomutt";
-#        rev = "fd5745f56fd4c3a80fcf5dec42a0db2f1573b4c5";
-#        sha256 = "sha256-vAS9omz3AGAMdsnSgsqXTGTQaY1aev4MEVvsC+W6j/k=";
-#      };
-      patches = [];
+    package = pkgs.enableDebugging ((pkgs.neomutt.override {
+      enableLua = true;
+      enableZstd = true;
+      enableMixmaster = true;
+    }).overrideAttrs (old: {
+      # Undefined behavior + address sanitizer.
+      configureFlags = old.configureFlags ++ lib.optional smokeOutBugs "--asan --ubsan";
     }));
     sidebar.width = 40;
     sidebar.enable = true;

@@ -1,21 +1,31 @@
+[theme]
 theme = "gruvbox-dark"
+[icons]
 icons = "awesome5"
 
 [[block]]
 block = "custom"
 command = '''is_paused=$(dunstctl is-paused); if [[ "${is_paused}" == "true" ]]; then echo "DND"; else echo "No DND"; fi'''
-on_click = "dunstctl set-paused toggle"
 interval = 15
+[[block.click]]
+button = "left"
+cmd = "dunstctl set-paused toggle"
+sync = true
+update = true
 
 [[block]]
 block = "custom"
 command = '''printf "Mails in queue: %d" $(ls ~/.local/share/msmtp/queue/*.mail | wc -l)'''
-on_click = "msmtp-queue -r"
 interval = 15
+[[block.click]]
+button = "left"
+cmd = "msmtp-queue -r"
+sync = true
+update = true
 
-[[block]]
-block = "speedtest"
-interval = 640
+# [[block]]
+# block = "speedtest"
+# interval = 640
 
 [[block]]
 block = "uptime"
@@ -23,24 +33,23 @@ block = "uptime"
 [[block]]
 block = "net"
 device = "wlp3s0"
-format = "{ssid} {signal_strength} {ip} {frequency}"
-format_alt = "{ssid} {ipv6} {speed_down;K*b}"
+format = "$icon $ssid $signal_strength $ip $frequency"
+format_alt = "$ssid $ipv6 $speed_down.eng(prefix:M)"
 interval = 20
-hide_inactive = true
+# hide_inactive = true
 
 [[block]]
 block = "net"
 device = "enp0s31f6"
-format = "{bitrate} {ip}"
-format_alt = "{ipv6} {speed_up;K*b} {speed_down;K*b}"
+format = " $icon $bitrate $ip "
+format_alt = " $ipv6 $speed_up.eng(prefix:M) $speed_down.eng(prefix:M) "
 interval = 20
-hide_inactive = true
+missing_format = ""
 
 [[block]]
 block = "net"
 device = "enp9s0u1"
-format = "{bitrate} {ip}"
-format_alt = "{ipv6} {speed_up;K*b} {speed_down;K*b}"
+format = " $icon $ip "
+format_alt = " $ipv6 $speed_up.eng(prefix:M) $speed_down.eng(prefix:M) "
 interval = 5
-hide_inactive = true
-hide_missing = true
+missing_format = ""

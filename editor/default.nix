@@ -27,7 +27,7 @@ let
         tree-sitter-nix
         tree-sitter-python
         tree-sitter-svelte
-        tree-sitter-lean4
+        # tree-sitter-lean4
       ]))
     nvim-treesitter-textobjects
   ];

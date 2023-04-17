@@ -20,6 +20,7 @@
     ./screen-layouts.nix
     ./compositor.nix
     ./web-browser.nix
+    ./screencasting.nix
   ];
  
   # Let Home Manager install and manage itself.

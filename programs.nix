@@ -20,6 +20,7 @@
     git-absorb
     hyperfine
     minicom
+    magic-wormhole
     # TODO (broken): khal
     aerc
     pdftk

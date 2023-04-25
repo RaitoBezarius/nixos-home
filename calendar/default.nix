@@ -8,10 +8,6 @@ in
 # This module requires runtime secrets
 # to interact with the different calendars.
 lib.optionalAttrs osConfig.my.runtime-secrets {
-  imports = [
-    ./modules/vdirsyncer.nix
-  ];
-
   programs.zsh.shellAliases."vsync" = "vdirsyncer -c ${config.services.vdirsyncer.configFile}";
 
   services.vdirsyncer = {

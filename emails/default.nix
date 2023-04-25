@@ -35,7 +35,10 @@ let
         named-mailboxes ${namedMailbox} +Inbox
       '';
     };
-    notmuch.enable = true;
+    notmuch = {
+      enable = true;
+      neomutt.enable = false;
+    };
     passwordCommand = passStore.defaultSession passStorePath;
 
     imapnotify = {
@@ -125,7 +128,6 @@ lib.optionalAttrs osConfig.my.runtime-secrets {
           enable = true;
           extraConfig = ''
             ${autodiscoverMailboxes "ens-fr"}
-            unmailboxes +Inbox
             named-mailboxes ENS-Inbox +Inbox
 
             folder-hook . "set sort=reverse-date ; set sort_aux=date"
@@ -147,7 +149,10 @@ lib.optionalAttrs osConfig.my.runtime-secrets {
           tls.enable = true;
           port = 465;
         };
-        notmuch.enable = true;
+        notmuch = {
+          enable = true;
+          neomutt.enable = false;
+        };
         passwordCommand = passStore.defaultSession "ENS/SPI";
         imapnotify = {
           enable = true;
@@ -168,10 +173,13 @@ lib.optionalAttrs osConfig.my.runtime-secrets {
           create = "both";
         };
         msmtp.enable = true;
+        notmuch = {
+          enable = true;
+          neomutt.enable = false;
+        };
         neomutt = {
           enable = true;
           extraConfig = ''
-            unmailboxes +Inbox
             named-mailboxes GMail-Inbox +Inbox
           '';
         };

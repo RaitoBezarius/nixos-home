@@ -19,6 +19,7 @@
     git-lfs
     git-absorb
     hyperfine
+    minicom
     # TODO (broken): khal
     aerc
     pdftk

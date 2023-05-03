@@ -225,6 +225,9 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
+# Audio stuff
+bindsym $mod+P exec "wpctl set-mute @DEFAULT_SINK@ toggle"
+
 # Nix stuff
 # TODO: quick edit /etc/nixos as root
 # TODO: quick commit to my repository, the changes.

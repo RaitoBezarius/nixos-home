@@ -28,7 +28,7 @@
     pandoc
     zotero
     # dino
-    prismlauncher # multimc
+    # prismlauncher # multimc
     pixiecore
     pavucontrol
     easyeffects

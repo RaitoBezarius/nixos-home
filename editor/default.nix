@@ -75,7 +75,7 @@ let
     coc-tsserver
   ];
   pythonPlugins = with pkgs.vimPlugins; [
-    semshi
+    # semshi
     vim-python-pep8-indent
   ];
   themes = with pkgs.vimPlugins; [

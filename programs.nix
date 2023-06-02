@@ -85,6 +85,9 @@
     sipcalc
     ipv6calc
 
+    # VNC
+    tigervnc
+
     gh
     tea
   ];

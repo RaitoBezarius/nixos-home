@@ -3,6 +3,7 @@
   imports = [
     # /home/raito/dev/projects/agenix/modules/hm-age.nix
     ./xorg.nix
+    ./sway.nix
     ./shell
     ./emails
     ./theme

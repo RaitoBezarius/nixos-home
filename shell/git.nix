@@ -1,6 +1,9 @@
-{ pkgs, lib, ... }:
+{ osConfig, pkgs, lib, ... }:
 let
   emailUtils = import ../emails/utils.nix { inherit lib; };
+  signingKeys = {
+    "Thorkell" = "1944DAD8026ABF75!";
+  };
 in
 {
   # Git
@@ -17,6 +20,7 @@ in
     ];
 
     extraConfig = {
+      user.signingkey = signingKeys.${osConfig.networking.hostName};
       ghq = {
         root = "~/dev";
       };

@@ -228,7 +228,7 @@ vim.fn.mkdir(parser_install_dir, "p")
 
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { "python", "nix", "svelte" },
+  -- ensure_installed = { "python", "nix", "svelte" },
   parser_install_dir = parser_install_dir,
 
   highlight = { enable = true },

@@ -52,6 +52,8 @@ in
       weather = "curl wttr.in";
       v6 = "curl api6.ipify.org";
       v4 = "curl api.ipify.org";
+      clbin = "curl -F'clbin=<-' https://clbin.com";
+      _0x0 = "curl -F'file=@-' https://0x0.st";
 
       phs = "python -m http.server";
 

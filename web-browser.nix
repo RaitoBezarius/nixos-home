@@ -11,6 +11,7 @@
       { id = "enjjhajnmggdgofagbokhmifgnaophmh"; } # Resolution Zoom for HiDPI
       { id = "ekhagklcjbdpajgpjgmbionohlpdbjgc"; } # Zotero Connector
       { id = "nkbihfbeogaeaoehlefnkodbefgpgknn"; } # MetaMask
+      { id = "hlepfoohegkhhmjieoechaddaejaokhf"; } # Refined GitHub
       { id = "dcpihecpambacapedldabdbpakmachpb"; updateUrl = "https://raw.githubusercontent.com/iamadamdev/bypass-paywalls-chrome/master/src/updates/updates.xml"; }
     ];
   };

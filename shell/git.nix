@@ -20,7 +20,7 @@ in
     ];
 
     extraConfig = {
-      user.signingkey = signingKeys.${osConfig.networking.hostName};
+      user.signingkey = lib.mkIf (builtins.hasAttr osConfig.networking.hostName signingKeys) (signingKeys.${osConfig.networking.hostName});
       ghq = {
         root = "~/dev";
       };

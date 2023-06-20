@@ -2,7 +2,7 @@
 {
   home.packages = with pkgs; [
     # Troubleshooting
-    iperf3 pciutils
+    iperf3 pciutils flent
     usbutils
     # Misc
     signal-desktop

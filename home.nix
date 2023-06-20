@@ -7,7 +7,7 @@
     ./shell
     ./emails
     ./theme
-    ./calendar
+    # ./calendar
     ./dotfiles.nix
     ./codium.nix
     ./gpg.nix

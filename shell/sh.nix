@@ -106,8 +106,10 @@ in
       lnixpkgs = "$LOCAL_NIXPKGS_CHECKOUT";
       gh = "${config.home.homeDirectory}/dev/github.com";
       pp = "${config.home.homeDirectory}/dev/github.com/RaitoBezarius";
+      ppn = "${config.home.homeDirectory}/dev/git.newtype.fr/ryan";
       ens = "${config.home.homeDirectory}/dev/projects/ens";
       newtype = "${config.home.homeDirectory}/dev/git.newtype.fr";
+      nt = "${config.home.homeDirectory}/dev/git.newtype.fr/newtype";
       nc = "${config.home.homeDirectory}/dev/github.com/nix-community";
       detsys = "${config.home.homeDirectory}/dev/github.com/DeterminateSystems";
       nixos = "${config.home.homeDirectory}/dev/github.com/NixOS";

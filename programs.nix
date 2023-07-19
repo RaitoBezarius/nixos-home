@@ -4,6 +4,11 @@
     # Troubleshooting
     iperf3 pciutils flent
     usbutils
+    # Docs
+    linux-manual
+    glibcInfo
+    man-pages
+    man-pages-posix
     # Misc
     signal-desktop
     libqalculate
@@ -66,6 +71,7 @@
     tmux
     gdb
     tealdeer
+    cheat
     nixos-option
     shellcheck
     # mathlibtools

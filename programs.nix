@@ -96,5 +96,6 @@
 
     gh
     tea
+    kicad
   ];
 }

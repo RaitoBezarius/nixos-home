@@ -103,6 +103,7 @@ in
       rust-analyzer
       ccls
       nodePackages.svelte-language-server
+      nodePackages.typescript-language-server
       nodePackages.pyright
       nodePackages.prettier
       xclip # For Xorg

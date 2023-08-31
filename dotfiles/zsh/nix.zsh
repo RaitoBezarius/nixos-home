@@ -1,5 +1,6 @@
 # Local development of nixpkgs
 export LOCAL_NIXPKGS_CHECKOUT="$HOME/dev/github.com/NixOS/nixpkgs"
+export GITHUB_TOKEN=$(gh auth token)
 
 function nrs() (
 	cd ~cfg-mono

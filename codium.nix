@@ -5,7 +5,6 @@
     package = pkgs.vscodium-fhs;
     extensions = (with pkgs.vscode-extensions; [
       bbenoist.nix
-      ms-python.python
       redhat.vscode-yaml
       cmschuetz12.wal
       alanz.vscode-hie-server

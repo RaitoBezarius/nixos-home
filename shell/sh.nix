@@ -57,7 +57,7 @@ in
 
       phs = "python -m http.server";
 
-      ls = "exa";
+      ls = "eza";
 
       rtmv = "rsync -avP";
       archive = "rsync --remove-source-files -avPzz";

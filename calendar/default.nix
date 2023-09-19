@@ -11,7 +11,7 @@ lib.optionalAttrs osConfig.my.runtime-secrets {
   programs.zsh.shellAliases."vsync" = "vdirsyncer -c ${config.services.vdirsyncer.configFile}";
 
   services.vdirsyncer = {
-    enable = true;
+    enable = false;
 
     settings = {
       general."status_path" = "${config.home.homeDirectory}/.config/vdirsyncer";

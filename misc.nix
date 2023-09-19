@@ -42,7 +42,7 @@ in
   # Task manager
   programs.taskwarrior = {
     enable = true;
-    colorTheme = "dark-blue-256";
+    # colorTheme = "dark-blue-256";
   };
   # home.file.".taskrc".source = /home/raito/dotfiles/.taskrc;
 

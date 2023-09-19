@@ -97,5 +97,6 @@
     gh
     tea
     # kicad
+    syncall
   ];
 }

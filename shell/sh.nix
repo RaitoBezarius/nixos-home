@@ -89,11 +89,11 @@ in
 
       lln = "NIX_PATH=\"nixpkgs=$LOCAL_NIXPKGS_CHECKOUT\"";
       # Local build
-      lnb = "NIX_PATH=\"nixpkgs=$LOCAL_NIXPKGS_CHECKOUT\" nix-build '<nixpkgs>' --no-out-link -A $1";
+      lnb = "NIX_PATH=\"nixpkgs=$LOCAL_NIXPKGS_CHECKOUT\" nom-build '<nixpkgs>' --no-out-link -A $1";
       # Local shell
       lns = "NIX_PATH=\"nixpkgs=$LOCAL_NIXPKGS_CHECKOUT\" nix-shell -p $1";
       # Local test
-      ltt = ''NIX_PATH=\"nixpkgs=$LOCAL_NIXPKGS_CHECKOUT\" nix-build --no-out-link "$LOCAL_NIXPKGS_CHECKOUT/nixos/tests/$1"'';
+      ltt = ''NIX_PATH=\"nixpkgs=$LOCAL_NIXPKGS_CHECKOUT\" nom-build --no-out-link "$LOCAL_NIXPKGS_CHECKOUT/nixos/tests/$1"'';
     };
 
     dirHashes = {

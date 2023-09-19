@@ -1,36 +1,4 @@
-local on_attach = function(client, bufnr)
-  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-
-  --Enable completion triggered by <c-x><c-o>
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-  -- Mappings.
-  local opts = { noremap=true, silent=true }
-
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-  buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-
-end
 require('lean').setup{
-  lsp = { on_attach = on_attach },
-  lsp3 = { on_attach = on_attach },
   -- Abbreviation support
   abbreviations = {
     builtin = true, -- built-in expander
@@ -38,7 +6,7 @@ require('lean').setup{
     snippets = false, -- snippets.nvim source
     -- Change if you don't like the backslash
     -- (comma is a popular choice on French keyboards)
-    leader = '\\',
+    leader = ',',
   },
 
   -- Enable suggested mappings?
@@ -49,9 +17,31 @@ require('lean').setup{
   -- Infoview support
   infoview = {
     -- Automatically open an infoview on entering a Lean buffer?
+    -- Should be a function that will be called anytime a new Lean file
+    -- is opened. Return true to open an infoview, otherwise false.
+    -- Setting this to `true` is the same as `function() return true end`,
+    -- i.e. autoopen for any Lean file, or setting it to `false` is the
+    -- same as `function() return false end`, i.e. never autoopen.
     autoopen = true,
-    -- Set the infoview windows' widths
-    width = 60,
+
+    -- Set infoview windows' starting dimensions.
+    -- Windows are opened horizontally or vertically depending on spacing.
+    width = 50,
+    height = 20,
+
+    -- Put the infoview on the top or bottom when horizontal?
+    -- top | bottom
+    horizontal_position = "bottom",
+
+    -- Always open the infoview window in a separate tabpage.
+    -- Might be useful if you are using a screen reader and don't want too
+    -- many dynamic updates in the terminal at the same time.
+    -- Note that `height` and `width` will be ignored in this case.
+    separate_tab = false,
+
+    -- Show indicators for pin locations when entering an infoview window?
+    -- always | never | auto (= only when there are multiple pins)
+    indicators = "auto",
   },
 
   -- Progress bar support
@@ -61,4 +51,105 @@ require('lean').setup{
     -- Use a different priority for the signs
     priority = 10,
   },
+
+  -- Redirect Lean's stderr messages somehwere (to a buffer by default)
+  stderr = {
+    enable = true,
+    -- height of the window
+    height = 5,
+    -- a callback which will be called with (multi-line) stderr output
+    -- e.g., use:
+    --   on_lines = function(lines) vim.notify(lines) end
+    -- if you want to redirect stderr to `vim.notify`.
+    -- The default implementation will redirect to a dedicated stderr
+    -- window.
+    on_lines = nil,
+  },
 }
+
+-- See https://github.com/theHamsta/nvim-semantic-tokens/blob/master/doc/nvim-semantic-tokens.txt
+local mappings = {
+  LspKeyword = "@keyword",
+  LspVariable = "@variable",
+  LspNamespace = "@namespace",
+  LspType = "@type",
+  LspClass = "@type.builtin",
+  LspEnum = "@constant",
+  LspInterface = "@type.definition",
+  LspStruct = "@structure",
+  LspTypeParameter = "@type.definition",
+  LspParameter = "@parameter",
+  LspProperty = "@property",
+  LspEnumMember = "@field",
+  LspEvent = "@variable",
+  LspFunction = "@function",
+  LspMethod = "@method",
+  LspMacro = "@macro",
+  LspModifier = "@keyword.function",
+  LspComment = "@comment",
+  LspString = "@string",
+  LspNumber = "@number",
+  LspRegexp = "@string.special",
+  LspOperator = "@operator",
+}
+
+for from, to in pairs(mappings) do
+  vim.cmd.highlight('link ' .. from .. ' ' .. to)
+end
+
+local _LEAN3_STANDARD_LIBRARY = '.*/[^/]*lean[%-]+3.+/lib/'
+local _LEAN3_VERSION_MARKER = '.*lean_version.*".*:3.*'
+local _LEAN4_VERSION_MARKER = '.*lean_version.*".*lean4:.*'
+
+local function detect(filename)
+  if filename:match '^fugitive://.*' then
+    filename = pcall(vim.fn.FugitiveReal, filename)
+  end
+
+  local abspath = vim.fn.fnamemodify(filename, ':p')
+  local filetype = lean_nvim_default_filetype
+  if not filetype then
+    filetype = 'lean'
+  end
+
+  if abspath:match(_LEAN3_STANDARD_LIBRARY) then
+    filetype = 'lean3'
+  else
+    local find_project_root =
+      require('lspconfig.util').root_pattern('leanpkg.toml', 'lakefile.lean', 'lean-toolchain')
+    local project_root = find_project_root(abspath)
+    local succeeded, result
+    if project_root then
+      succeeded, result = pcall(vim.fn.readfile, project_root .. '/lean-toolchain')
+      if succeeded then
+        if result[1]:match '.*:3.*' then
+          filetype = 'lean3'
+        elseif result[1]:match '.*lean4:.*' then
+          filetype = 'lean'
+        end
+      else
+        succeeded, result = pcall(vim.fn.readfile, project_root .. '/leanpkg.toml')
+        if succeeded then
+          for _, line in ipairs(result) do
+            if line:match(_LEAN3_VERSION_MARKER) then
+              filetype = 'lean3'
+              break
+            end
+            if line:match(_LEAN4_VERSION_MARKER) then
+              filetype = 'lean'
+              break
+            end
+          end
+        end
+      end
+    end
+  end
+  vim.opt.filetype = filetype
+end
+
+vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+  pattern = '*.lean',
+  callback = function(opts)
+    detect(opts.file)
+  end,
+})

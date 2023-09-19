@@ -10,11 +10,19 @@ let
       sha256 = "sha256-yrxjynqNpWwF50fAnbf6SNcoLqzZC5cdZCWAZg2zNfs=";
     };
   };
+  lean-nvim-updated = pkgs.vimPlugins.lean-nvim.overrideAttrs (old: {
+    version = "2023-09-18";
+    src = old.src.overrideAttrs (old_: {
+      rev = "ad8305e07dd6226724e87607c9c5a8331bb3f62e";
+      hash = lib.fakeHash;
+    });
+  });
   lspPlugins = with pkgs.vimPlugins; [
     nvim-lspconfig
     fidget-nvim
     nlsp-settings-nvim
     vim-ccls
+    lean-nvim
   ];
   autocompletePlugins = with pkgs.vimPlugins; [
     nvim-cmp
@@ -23,13 +31,13 @@ let
     cmp_luasnip
   ];
   treesitterPlugins = with pkgs.vimPlugins; [
-    (nvim-treesitter.withPlugins (ps: with ps; [
-        tree-sitter-nix
-        tree-sitter-python
-        tree-sitter-svelte
-        # tree-sitter-lean4
-      ]))
-    nvim-treesitter-textobjects
+   # (nvim-treesitter.withPlugins (ps: with ps; [
+   #     tree-sitter-nix
+   #     tree-sitter-python
+   #     tree-sitter-svelte
+   #     # tree-sitter-lean4
+   #   ]))
+   # nvim-treesitter-textobjects
   ];
   gitPlugins = with pkgs.vimPlugins; [
     vim-fugitive
@@ -62,6 +70,9 @@ let
     vim-cue
     vim-docbk
     vim-docbk-snippets
+
+    # REPL for Lua and VimScript
+    neorepl-nvim
 
     ctrlp
   ];
@@ -109,6 +120,7 @@ in
       xclip # For Xorg
       wl-clipboard # For Wayland
       nil
+      elan # for Lean
     ];
     extraPython3Packages = (ps: with ps; [
       black

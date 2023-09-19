@@ -7,6 +7,7 @@
     ./shell
     ./emails
     ./theme
+    ./calendar/taskwarrior.nix
     # ./calendar
     ./dotfiles.nix
     ./codium.nix

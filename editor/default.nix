@@ -31,13 +31,15 @@ let
     cmp_luasnip
   ];
   treesitterPlugins = with pkgs.vimPlugins; [
-   # (nvim-treesitter.withPlugins (ps: with ps; [
-   #     tree-sitter-nix
-   #     tree-sitter-python
-   #     tree-sitter-svelte
-   #     # tree-sitter-lean4
-   #   ]))
-   # nvim-treesitter-textobjects
+    (nvim-treesitter.withPlugins (ps: with ps; [
+        tree-sitter-nix
+        tree-sitter-python
+        tree-sitter-svelte
+        tree-sitter-c
+        tree-sitter-lua
+        # tree-sitter-lean4
+      ]))
+    nvim-treesitter-textobjects
   ];
   gitPlugins = with pkgs.vimPlugins; [
     vim-fugitive
@@ -71,10 +73,15 @@ let
     vim-docbk
     vim-docbk-snippets
 
+<<<<<<< HEAD
     # REPL for Lua and VimScript
     neorepl-nvim
 
     ctrlp
+=======
+    vimwiki
+    taskwiki
+>>>>>>> 6c23cb7 (editor: add tree-sitter-c, -lua, taskwiki, vimwiki)
   ];
   cocPlugins = with pkgs.vimPlugins; [
     coc-prettier
@@ -126,6 +133,8 @@ in
       black
       flake8
       isort
+      six
+      tasklib
     ]);
     extraConfig = ''
       lua<<EOF

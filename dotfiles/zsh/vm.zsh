@@ -6,6 +6,14 @@ function urun()
   nix-shell -p uefi-run -p qemu --run uefi-run --qemu-path "qemu-system-$(ARCH_STRING)" --bios-path "$OVMF/FV/OVMF.fd" "$@" --drive format=raw,file=fat:rw:${ESP_LOCATION}
 }
 
+function ubrun()
+{
+  local uboot="$(lnb securebootUbootQemuX86)"
+  local ESP_LOCATION="${ESP:-$(pwd)/esp}"
+  local ARCH_STRING="${ARCH:-x86_64}"
+  nix-shell -p qemu --run "qemu-system-$ARCH_STRING -s -bios "$uboot/u-boot.rom" -net none -nographic -boot d -drive format=raw,file=fat:rw:${ESP_LOCATION}" "$@"
+}
+
 function uefi_iso_run()
 {
   local OVMF="$(nix-build '<nixpkgs>' -A pkgs.OVMF.fd)"

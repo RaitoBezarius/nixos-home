@@ -73,15 +73,11 @@ let
     vim-docbk
     vim-docbk-snippets
 
-<<<<<<< HEAD
     # REPL for Lua and VimScript
     neorepl-nvim
 
-    ctrlp
-=======
     vimwiki
     taskwiki
->>>>>>> 6c23cb7 (editor: add tree-sitter-c, -lua, taskwiki, vimwiki)
   ];
   cocPlugins = with pkgs.vimPlugins; [
     coc-prettier

@@ -32,7 +32,7 @@
     nitrogen
     pandoc
     zotero
-    # dino
+    dino
     # prismlauncher # multimc
     pixiecore
     pavucontrol

@@ -31,6 +31,13 @@ in
       bind index,pager B sidebar-toggle-visible
       bind pager ,g group-reply
 
+      # Move message(s) to Spam by pressing "S"
+      macro index S "<tag-prefix><enter-command>unset resolve<enter><tag-prefix><clear-flag>N<tag-prefix><enter-command>set resolve<enter><tag-prefix><save-message>=spam<enter>" "file as Spam"
+      macro pager S "<save-message>=spam<enter>" "file as Spam"
+      # Return to Inbox by pressing "."
+      macro index . "<change-folder>=INBOX<enter>" "INBOX"
+
+
       set sidebar_delim_chars="/"             # Delete everything up to the last / character
       set sidebar_folder_indent               # Indent folders whose names we've shortened
       set sidebar_indent_string="  "          # Indent with two spaces

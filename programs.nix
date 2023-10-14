@@ -98,5 +98,8 @@
     tea
     # kicad
     syncall
+
+    mangohud
+    gamemode
   ];
 }

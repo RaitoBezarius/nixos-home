@@ -89,7 +89,7 @@ in
   services.mpdris2.enable = true;
 
   # Music library
-  programs.beets.enable = true;
+  programs.beets.enable = false;
   # xdg.configFile."beets/config.yaml".source =
   #  lib.mkForce /home/raito/dotfiles/.config/beets/config.yaml;
 
@@ -110,10 +110,10 @@ in
   };
 
   # Rootless mounts
-  services.udiskie = {
-    enable = true;
-    automount = false;
-  };
+  #services.udiskie = {
+  #  enable = true;
+  #  automount = false;
+  #};
 
   # PDF reader
   programs.zathura.enable = true;

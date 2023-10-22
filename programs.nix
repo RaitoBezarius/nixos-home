@@ -97,7 +97,7 @@
     gh
     tea
     # kicad
-    syncall
+    # syncall
 
     mangohud
     gamemode

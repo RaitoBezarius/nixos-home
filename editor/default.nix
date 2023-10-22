@@ -120,7 +120,6 @@ in
       nodePackages.typescript-language-server
       nodePackages.pyright
       nodePackages.prettier
-      perlPackages.PLS
       xclip # For Xorg
       wl-clipboard # For Wayland
       nil

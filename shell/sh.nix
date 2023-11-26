@@ -3,7 +3,7 @@ let
   fetchFromGitHub = pkgs.fetchFromGitHub;
 in
 {
-  xdg.configFile."zsh/personal".source = config.lib.file.mkOutOfStoreSymlink ../dotfiles/zsh;
+  xdg.configFile."zsh/personal".source = ../dotfiles/zsh;
   # age.secrets.work-zshrc.file = ../secrets/work-zshrc.age;
 
   programs.zsh = {

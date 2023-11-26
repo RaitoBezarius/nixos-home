@@ -60,7 +60,7 @@
     nodePackages.pnpm
     # raito-dev.nodePackages.lean-language-server
     borgbackup
-    python39Packages.percol
+    python3Packages.percol
     libnotify
     fzf
     keyutils

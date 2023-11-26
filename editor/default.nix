@@ -23,6 +23,7 @@ let
     nlsp-settings-nvim
     vim-ccls
     lean-nvim
+    Coqtail
   ];
   autocompletePlugins = with pkgs.vimPlugins; [
     nvim-cmp

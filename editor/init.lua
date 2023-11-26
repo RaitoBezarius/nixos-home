@@ -174,9 +174,7 @@ require('lualine').setup {
 
 -- Enable `lukas-reineke/indent-blankline.nvim`
 -- See `:help indent_blankline.txt`
-require('ibl').setup {
-  remove_blankline_trail = false,
-}
+require('ibl').setup { }
 
 -- Gitsigns
 -- See `:help gitsigns.txt`

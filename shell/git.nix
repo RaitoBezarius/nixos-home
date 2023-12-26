@@ -32,6 +32,7 @@ in
     enable = true;
     gitCredentialHelper.enable = true;
     settings = {
+      version = 1;
       git_protocol = "ssh";
       extensions = [ pkgs.gh-dash pkgs.gh-eco ];
     };

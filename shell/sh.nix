@@ -111,11 +111,12 @@ in
       newtype = "${config.home.homeDirectory}/dev/git.newtype.fr";
       nt = "${config.home.homeDirectory}/dev/git.newtype.fr/newtype";
       nc = "${config.home.homeDirectory}/dev/github.com/nix-community";
+      dgn = "${config.home.homeDirectory}/dev/git.dgnum.eu";
+      tvl = "${config.home.homeDirectory}/dev/code.tvl.fyi";
       detsys = "${config.home.homeDirectory}/dev/github.com/DeterminateSystems";
       nixos = "${config.home.homeDirectory}/dev/github.com/NixOS";
-      aggelia = "${config.home.homeDirectory}/dev/git.newtype.fr/ryan/aggelia";
-      lanzaboote = "${config.home.homeDirectory}/dev/github.com/nix-community/lanzaboote";
-      nix-rfcs = "${config.home.homeDirectory}/dev/github.com/NixOS/rfcs";
+      lzbt = "${config.home.homeDirectory}/dev/github.com/nix-community/lanzaboote";
+      rfc = "${config.home.homeDirectory}/dev/github.com/NixOS/rfcs";
     };
     plugins = [
       # https://github.com/idadzie/zsh-presenter-mode

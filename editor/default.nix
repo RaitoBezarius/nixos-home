@@ -10,13 +10,6 @@ let
       sha256 = "sha256-yrxjynqNpWwF50fAnbf6SNcoLqzZC5cdZCWAZg2zNfs=";
     };
   };
-  lean-nvim-updated = pkgs.vimPlugins.lean-nvim.overrideAttrs (old: {
-    version = "2023-09-18";
-    src = old.src.overrideAttrs (old_: {
-      rev = "ad8305e07dd6226724e87607c9c5a8331bb3f62e";
-      hash = lib.fakeHash;
-    });
-  });
   lspPlugins = with pkgs.vimPlugins; [
     nvim-lspconfig
     fidget-nvim

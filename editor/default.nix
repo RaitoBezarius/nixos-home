@@ -10,6 +10,15 @@ let
       sha256 = "sha256-yrxjynqNpWwF50fAnbf6SNcoLqzZC5cdZCWAZg2zNfs=";
     };
   };
+  noir-lang-vim = pkgs.vimUtils.buildVimPlugin {
+    name = "noir-lang-syntax";
+    src = pkgs.fetchFromGitHub {
+      owner = "Louis-Amas";
+      repo = "noir-vim-support";
+      rev = "1ca1ecb639dd0aa7385d50afa3969572fa7f2a7d";
+      sha256 = "sha256-Ao7jCvvKp92xcUGdxRfAOwP7K6In8HuOZbjg29oi+Tk=";
+    };
+  };
   lspPlugins = with pkgs.vimPlugins; [
     nvim-lspconfig
     fidget-nvim
@@ -60,6 +69,7 @@ let
     vim-nix
     rust-vim
     zig-vim
+    noir-lang-vim
     vim-pandoc
     vim-pandoc-syntax
     editorconfig-vim

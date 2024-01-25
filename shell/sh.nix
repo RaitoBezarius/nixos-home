@@ -13,7 +13,7 @@ in
     history = { save = 1000000; extended = true; ignoreDups = true; };
     # defaultKeymap = "vicmd";
     initExtra = ''
-      setopt extendedglob nomatch notify autopushd
+      setopt extendedglob nomatch notify autopushd no_nomatch
       unsetopt autocd beep
 
       # export SECRET_ZSHRC="blurb"

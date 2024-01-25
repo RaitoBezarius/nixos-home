@@ -15,12 +15,12 @@
       };
     };
     iconTheme = {
-      name = "Paper";
-      package = pkgs.paper-icon-theme;
+      name = "palenight";
+      package = pkgs.palenight-theme;
     };
     theme = {
-      name = "Paper";
-      package = pkgs.paper-gtk-theme;
+      name = "palenight";
+      package = pkgs.palenight-theme;
     };
   };
 }

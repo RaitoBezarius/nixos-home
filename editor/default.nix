@@ -70,6 +70,7 @@ let
     rust-vim
     zig-vim
     noir-lang-vim
+    vim-ledger
     vim-pandoc
     vim-pandoc-syntax
     editorconfig-vim
@@ -128,6 +129,7 @@ in
       wl-clipboard # For Wayland
       nil
       elan # for Lean
+      hledger # For plaintext accounting
     ];
     extraPython3Packages = (ps: with ps; [
       black

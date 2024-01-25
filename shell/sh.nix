@@ -39,6 +39,9 @@ in
       lg = "lazygit";
       g = "git";
       gua = "git remote | xargs -L1 git push --all";
+      grc = "git rebase --continue";
+      gau = "git add -u";
+      gcpc = "git cherry-pick --continue";
 
       v = "$EDITOR";
       sdn = "shutdown now";

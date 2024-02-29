@@ -116,6 +116,7 @@ in
       nc = "${config.home.homeDirectory}/dev/github.com/nix-community";
       dgn = "${config.home.homeDirectory}/dev/git.dgnum.eu";
       tvl = "${config.home.homeDirectory}/dev/code.tvl.fyi";
+      lix = "${config.home.homeDirectory}/dev/gerrit.lix.systems/lix";
       detsys = "${config.home.homeDirectory}/dev/github.com/DeterminateSystems";
       nixos = "${config.home.homeDirectory}/dev/github.com/NixOS";
       lzbt = "${config.home.homeDirectory}/dev/github.com/nix-community/lanzaboote";

@@ -44,6 +44,7 @@
     # TODO (broken): super-slicer
     unzip
     ripgrep
+    ripgrep-all
     reflex
     nix-prefetch
     # raito-dev.wireguard-vanity-address
@@ -89,6 +90,7 @@
     # raito-nixpkgs.ripe-atlas-tools
     sipcalc
     ipv6calc
+    ssh3
 
     # VNC
     tigervnc

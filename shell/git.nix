@@ -30,6 +30,13 @@ in
     };
   };
 
+  programs.lazygit = {
+    enable = true;
+    settings = {
+      git.commit.signOff = true;
+    };
+  };
+
   programs.gh = {
     enable = true;
     gitCredentialHelper.enable = true;

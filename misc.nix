@@ -120,6 +120,5 @@ in
 
   # Utilities
   programs.jq.enable = true;
-  programs.lazygit.enable = true;
   services.flameshot.enable = true;
 }

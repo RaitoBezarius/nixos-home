@@ -21,6 +21,8 @@ in
 
     extraConfig = {
       user.signingkey = lib.mkIf (builtins.hasAttr osConfig.networking.hostName signingKeys) (signingKeys.${osConfig.networking.hostName});
+      fetch.writeCommitGraph = true;
+      core.fsmonitor = true;
       ghq = {
         root = "~/dev";
       };

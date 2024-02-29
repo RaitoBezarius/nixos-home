@@ -77,6 +77,7 @@ let
     vim-cue
     vim-docbk
     vim-docbk-snippets
+    typst-vim
 
     # REPL for Lua and VimScript
     neorepl-nvim
@@ -125,6 +126,8 @@ in
       nodePackages.typescript-language-server
       nodePackages.pyright
       nodePackages.prettier
+      typst-lsp
+      typstfmt
       xclip # For Xorg
       wl-clipboard # For Wayland
       nil

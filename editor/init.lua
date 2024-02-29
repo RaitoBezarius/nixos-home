@@ -355,7 +355,7 @@ local on_attach = function(_, bufnr)
   end, { desc = 'Format current buffer with LSP' })
 end
 
-local servers = { 'rust_analyzer', 'pyright', 'tsserver', 'nil_ls', 'ccls', 'leanls' }
+local servers = { 'rust_analyzer', 'pyright', 'tsserver', 'nil_ls', 'ccls', 'leanls', 'ocamllsp', 'fstar' }
 
 -- nvim-cmp supports additional completion capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -367,6 +367,14 @@ for _, lsp in ipairs(servers) do
     capabilities = capabilities,
   }
 end
+
+require('lspconfig').typst_lsp.setup {
+  settings = {
+    exportPdf = "onType"
+  },
+  on_attach = on_attach,
+  capabilities = capabilities
+}
 
 require('lean').setup {
   -- Abbreviation support

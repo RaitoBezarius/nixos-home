@@ -126,6 +126,7 @@ in
       nodePackages.typescript-language-server
       nodePackages.pyright
       nodePackages.prettier
+      ocamlPackages.ocaml-lsp
       typst-lsp
       typstfmt
       xclip # For Xorg

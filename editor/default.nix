@@ -127,6 +127,7 @@ in
       nodePackages.pyright
       nodePackages.prettier
       ocamlPackages.ocaml-lsp
+      fstar
       typst-lsp
       typstfmt
       xclip # For Xorg

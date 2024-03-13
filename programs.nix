@@ -72,7 +72,7 @@
     gdb
     tealdeer
     cheat
-    nixos-option
+    # nixos-option
     shellcheck
     # mathlibtools
     gnome-network-displays

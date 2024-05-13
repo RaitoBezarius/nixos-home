@@ -23,9 +23,10 @@
     gitAndTools.gitFull
     git-lfs
     git-absorb
+    git-gr
     hyperfine
     minicom
-    magic-wormhole
+    magic-wormhole-rs
     # TODO (broken): khal
     aerc
     pdftk
@@ -38,7 +39,7 @@
     pavucontrol
     easyeffects
     bind
-    nixfmt
+    nixfmt-rfc-style
     tasksh
     taskwarrior-tui
     # TODO (broken): super-slicer
@@ -92,13 +93,15 @@
     ipv6calc
     ssh3
 
+    # Security
+    pynitrokey
+
     # VNC
     tigervnc
 
     gh
     tea
     # kicad
-    # syncall
 
     mangohud
     gamemode

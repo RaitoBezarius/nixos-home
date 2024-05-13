@@ -26,7 +26,6 @@ smart-pinentry = pkgs.writeScriptBin "pinentry" ''
   services.gpg-agent = {
     enable = true;
     enableZshIntegration = true;
-    pinentryFlavor = null;
     extraConfig = ''
       pinentry-program ${smart-pinentry}/bin/pinentry
     '';

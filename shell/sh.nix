@@ -9,7 +9,7 @@ in
   programs.zsh = {
     enable = true;
     enableCompletion = true;
-    enableAutosuggestions = true;
+    autosuggestion.enable = true;
     history = { save = 1000000; extended = true; ignoreDups = true; };
     # defaultKeymap = "vicmd";
     initExtra = ''

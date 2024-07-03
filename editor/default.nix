@@ -122,9 +122,9 @@ in
       zig
       rust-analyzer
       ccls
+      pyright
       nodePackages.svelte-language-server
       nodePackages.typescript-language-server
-      nodePackages.pyright
       nodePackages.prettier
       ocamlPackages.ocaml-lsp
       fstar

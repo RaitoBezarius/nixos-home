@@ -32,13 +32,21 @@ vim.o.spell = false
 -- Hide buffers when it is abandoned
 vim.o.hidden = true
 
--- Unify copy buffers
-vim.opt.clipboard = 'unnamedplus'
+-- Always use a certain clipboard.
+vim.opt.clipboard:append { 'unnamedplus' }
 
--- OSC52 Clipboard
-vim.keymap.set('n', '<leader>c', '<Plug>OSCYankOperator')
-vim.keymap.set('n', '<leader>cc', '<leader>c_', {remap = true})
-vim.keymap.set('v', '<leader>c', '<Plug>OSCYankVisual')
+-- Remote clipboard with OSC 52.
+vim.g.clipboard = {
+  name = 'OSC 52',
+  copy = {
+    ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+    ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+  },
+  paste = {
+    ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+    ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+  },
+}
 
 -- Expand tabs
 vim.o.expandtab = true

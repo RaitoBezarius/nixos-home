@@ -4,6 +4,8 @@
     commandLineArgs = [
       "--ozone-platform-hint=wayland"
       "--load-media-router-component-extension=1"
+      # Workaround against the fucking bug on Thors.
+      "--disable-accelerated-video-decode"
     ];
     extensions = [
       { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # uBlock Origin

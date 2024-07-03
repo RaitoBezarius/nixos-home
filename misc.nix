@@ -102,10 +102,14 @@ in
     };
     keybindings = {
       "f1" = "launch --type overlay --stdin-source=@screen_scrollback ${vim-pager}/bin/vim-pager";
+      "f5" = "load_config_file";
+      "ctrl+shift+c" = "copy_to_clipboard";
+      "ctrl+shift+v" = "paste_from_clipboard";
     };
     settings = {
       enable_audio_bell = "no";
       scrollback_pager = "${vim-pager}/bin/vim-pager 'INPUT_LINE_NUMBER' 'CURSOR_LINE' 'CURSOR_COLUMN'";
+      clipboard_control = "write-clipboard write-primary read-clipboard-ask read-primary-ask";
     };
   };
 

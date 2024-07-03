@@ -49,7 +49,7 @@ in
     wl-clipboard
   ];
 
-  programs.zsh.loginExtra = ''
+  programs.zsh.loginExtra = lib.mkIf (osConfig.my.display-server == "wayland") ''
     if [[ -z $DISPLAY ]] && [[ $(tty) = "/dev/tty1" ]]; then
       export XDG_CURRENT_DESKTOP=sway
       export XDG_SESSION_TYPE=wayland

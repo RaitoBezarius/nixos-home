@@ -105,5 +105,8 @@
 
     mangohud
     gamemode
+
+    nheko
+    kdePackages.neochat
   ];
 }

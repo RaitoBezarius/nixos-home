@@ -127,7 +127,7 @@ in
       nodePackages.typescript-language-server
       nodePackages.prettier
       ocamlPackages.ocaml-lsp
-      fstar
+      # fstar
       typst-lsp
       typstfmt
       xclip # For Xorg

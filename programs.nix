@@ -2,7 +2,8 @@
 {
   home.packages = with pkgs; [
     # Troubleshooting
-    iperf3 pciutils flent
+    iperf3 pciutils 
+    # flent
     usbutils
     # Docs
     linux-manual
@@ -94,7 +95,7 @@
     ssh3
 
     # Security
-    pynitrokey
+    # pynitrokey
 
     # VNC
     tigervnc

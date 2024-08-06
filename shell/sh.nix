@@ -119,6 +119,8 @@ in
       lix = "${config.home.homeDirectory}/dev/gerrit.lix.systems/lix";
       detsys = "${config.home.homeDirectory}/dev/github.com/DeterminateSystems";
       nixos = "${config.home.homeDirectory}/dev/github.com/NixOS";
+      fos = "${config.home.homeDirectory}/dev/git.lix.systems/the-distro";
+      lixp = "${config.home.homeDirectory}/dev/git.lix.systems/lix-project";
       lzbt = "${config.home.homeDirectory}/dev/github.com/nix-community/lanzaboote";
       rfc = "${config.home.homeDirectory}/dev/github.com/NixOS/rfcs";
     };

@@ -96,7 +96,7 @@
     ssh3
 
     # Security
-    # pynitrokey
+    python311Packages.pynitrokey
 
     # VNC
     tigervnc

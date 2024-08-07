@@ -104,6 +104,7 @@ in
           xkb_layout = "fr";
           xkb_model = "pc105";
           xkb_variant = "oss";
+          xkb_options = "nbsp:none";
           repeat_delay = "250";
           repeat_rate = "60";
         };

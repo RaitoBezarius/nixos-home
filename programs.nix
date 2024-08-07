@@ -110,5 +110,7 @@
 
     nheko
     kdePackages.neochat
+
+    evcxr
   ];
 }

@@ -74,6 +74,7 @@
     gdb
     tealdeer
     cheat
+    termdown
     # nixos-option
     shellcheck
     # mathlibtools

@@ -47,6 +47,7 @@ in
     xdg-utils
     brillo
     wl-clipboard
+    wdisplays
   ];
 
   programs.zsh.loginExtra = lib.mkIf (osConfig.my.display-server == "wayland") ''
@@ -153,28 +154,26 @@ in
     enable = true;
   };
 
+  # TODO: branch on the type of machine
   services.kanshi = lib.mkIf (osConfig.my.display-server == "wayland") {
     enable = true;
     profiles = {
-      tum-dock = {
+      paris-dock = {
         outputs = [
           {
-            criteria = "Lenovo Group Limited P27u-20 V90BG95M";
+            criteria = "ViewSonic Corporation XG270 VXR200700013";
             mode = "1920x1080@60.000Hz";
             position = "0,0";
             scale = 1.0;
             status = "enable";
           }
           {
-            criteria = "Acer Technologies Acer B277K 0x0000CB12";
-            mode = "1920x1080@60.000Hz";
+            criteria = "ViewSonic Corporation VG2765 Series UXS183300233";
+            mode = "2560x1440@59.951Hz";
             position = "1920,0";
             scale = 1.0;
+            transform = "90";
             status = "enable";
-          }
-          {
-            criteria = "eDP-1";
-            status = "disable";
           }
         ];
       };

@@ -27,6 +27,7 @@
     git-gr
     hyperfine
     minicom
+    picocom
     magic-wormhole-rs
     # TODO (broken): khal
     aerc
@@ -87,7 +88,7 @@
     cabal-install
     haskellPackages.haskell-language-server
     djview
-    ghidra
+    # ghidra
 
     # Networking
     # raito-nixpkgs.ripe-atlas-tools

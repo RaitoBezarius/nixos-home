@@ -5,11 +5,11 @@ icons = "awesome5"
 
 [[block]]
 block = "custom"
-command = '''is_paused=$(dunstctl is-paused); if [[ "${is_paused}" == "true" ]]; then echo "DND"; else echo "No DND"; fi'''
+command = '''if makoctl mode | grep -q 'dnd'; then echo "DND"; else echo "No DND"; fi'''
 interval = 15
 [[block.click]]
 button = "left"
-cmd = "dunstctl set-paused toggle"
+cmd = "makoctl mode -t dnd"
 sync = true
 update = true
 

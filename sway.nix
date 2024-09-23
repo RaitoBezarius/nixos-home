@@ -40,7 +40,6 @@ in
     grim
     slurp
     swappy
-    flameshot
     swayidle
     waypipe
     wf-recorder
@@ -48,6 +47,7 @@ in
     brillo
     wl-clipboard
     wdisplays
+    kanshi
   ];
 
   programs.zsh.loginExtra = lib.mkIf (osConfig.my.display-server == "wayland") ''
@@ -152,6 +152,10 @@ in
 
   services.mako = lib.mkIf (osConfig.my.display-server == "wayland") {
     enable = true;
+    extraConfig = ''
+      [mode=dnd]
+      invisible=1
+    '';
   };
 
   # TODO: branch on the type of machine

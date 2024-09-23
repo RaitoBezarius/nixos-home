@@ -33,8 +33,8 @@ in
 
       mpv = "mpv --input-ipc-server=/tmp/mpvsoc$(date +%s)";
 
-      dnd = "dunstctl set-paused true";
-      nodnd = "dunstctl set-paused false";
+      dnd = "makoctl mode -a dnd";
+      nodnd = "makoctl mode -r dnd";
 
       lg = "lazygit";
       g = "git";

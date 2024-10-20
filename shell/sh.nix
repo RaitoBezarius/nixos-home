@@ -99,7 +99,7 @@ in
       ltt = ''NIX_PATH=\"nixpkgs=$LOCAL_NIXPKGS_CHECKOUT\" nom-build --no-out-link "$LOCAL_NIXPKGS_CHECKOUT/nixos/tests/$1"'';
     };
 
-    dirHashes = {
+    dirHashes = rec {
       nix-hm = "/nix/var/nix/profiles/per-user/$USER/home-manager";
       nix-now = "/run/current-system";
       nix-boot = "/nix/var/nix/profiles/system";
@@ -107,7 +107,9 @@ in
       cfg-mono = "${config.home.homeDirectory}/dev/git.newtype.fr/ryan/nixos-configurations";
       cfg-home = "${config.home.homeDirectory}/dev/git.newtype.fr/ryan/nixos-configurations/home";
       lnixpkgs = "$LOCAL_NIXPKGS_CHECKOUT";
+
       gh = "${config.home.homeDirectory}/dev/github.com";
+      kernel = "${gh}/torvalds/linux";
       pp = "${config.home.homeDirectory}/dev/github.com/RaitoBezarius";
       ppn = "${config.home.homeDirectory}/dev/git.newtype.fr/ryan";
       ens = "${config.home.homeDirectory}/dev/projects/ens";
@@ -115,12 +117,19 @@ in
       nt = "${config.home.homeDirectory}/dev/git.newtype.fr/newtype";
       nc = "${config.home.homeDirectory}/dev/github.com/nix-community";
       dgn = "${config.home.homeDirectory}/dev/git.dgnum.eu";
+      dgn-infra = "${dgn}/DGNum/infra";
+      dgn-lab = "${dgn}/DGNum/lab-infra";
+      liminix = "${dgn}/DGNum/liminix";
       tvl = "${config.home.homeDirectory}/dev/code.tvl.fyi";
       lix = "${config.home.homeDirectory}/dev/gerrit.lix.systems/lix";
       detsys = "${config.home.homeDirectory}/dev/github.com/DeterminateSystems";
       nixos = "${config.home.homeDirectory}/dev/github.com/NixOS";
       fos = "${config.home.homeDirectory}/dev/git.lix.systems/the-distro";
+      fos-infra = "${fos}/infra";
       lixp = "${config.home.homeDirectory}/dev/git.lix.systems/lix-project";
+      lix-infra = "${lixp}/web-services";
+      bbx = "${lixp}/buildbot-nix";
+      cbg = "${config.home.homeDirectory}/dev/codeberg.org";
       lzbt = "${config.home.homeDirectory}/dev/github.com/nix-community/lanzaboote";
       rfc = "${config.home.homeDirectory}/dev/github.com/NixOS/rfcs";
     };

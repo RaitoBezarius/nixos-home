@@ -13,7 +13,6 @@ in
     package = pkgs.enableDebugging ((pkgs.neomutt.override {
       enableLua = true;
       enableZstd = true;
-      enableMixmaster = true;
     }).overrideAttrs (old: {
       # Undefined behavior + address sanitizer.
       configureFlags = old.configureFlags ++ lib.optional smokeOutBugs "--asan --ubsan";

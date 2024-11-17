@@ -42,7 +42,7 @@ in
     swappy
     swayidle
     waypipe
-    wf-recorder
+    # wf-recorder
     xdg-utils
     brillo
     wl-clipboard
@@ -60,7 +60,7 @@ in
 
   # Mako systemd service.
   wayland.windowManager.sway = lib.mkIf (osConfig.my.display-server == "wayland") {
-    enable = true;
+    systemd.enable = true;
     wrapperFeatures = {
       base = true;
       gtk = true;

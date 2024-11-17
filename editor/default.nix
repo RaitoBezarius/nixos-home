@@ -26,6 +26,7 @@ let
     vim-ccls
     lean-nvim
     Coqtail
+    go-nvim
   ];
   autocompletePlugins = with pkgs.vimPlugins; [
     nvim-cmp
@@ -40,6 +41,7 @@ let
         tree-sitter-svelte
         tree-sitter-c
         tree-sitter-lua
+        tree-sitter-go
         # tree-sitter-lean4
       ]))
     nvim-treesitter-textobjects
@@ -135,6 +137,7 @@ in
       nil
       elan # for Lean
       hledger # For plaintext accounting
+      gopls # For Go
     ];
     extraPython3Packages = (ps: with ps; [
       black

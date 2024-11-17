@@ -363,7 +363,7 @@ local on_attach = function(_, bufnr)
   end, { desc = 'Format current buffer with LSP' })
 end
 
-local servers = { 'rust_analyzer', 'pyright', 'tsserver', 'nil_ls', 'ccls', 'leanls', 'ocamllsp', 'fstar' }
+local servers = { 'rust_analyzer', 'pyright', 'tsserver', 'nil_ls', 'ccls', 'leanls', 'ocamllsp', 'fstar', 'gopls' }
 
 -- nvim-cmp supports additional completion capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -383,6 +383,16 @@ require('lspconfig').typst_lsp.setup {
   on_attach = on_attach,
   capabilities = capabilities
 }
+
+local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.go",
+  callback = function()
+   require('go.format').goimports()
+  end,
+  group = format_sync_grp,
+})
+require('go').setup()
 
 require('lean').setup {
   -- Abbreviation support

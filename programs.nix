@@ -94,7 +94,7 @@
     # raito-nixpkgs.ripe-atlas-tools
     sipcalc
     ipv6calc
-    ssh3
+    # ssh3
 
     # Security
     python311Packages.pynitrokey
@@ -110,8 +110,6 @@
     gamemode
 
     nheko
-    kdePackages.neochat
-
     evcxr
   ];
 }

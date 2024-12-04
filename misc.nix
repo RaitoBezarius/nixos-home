@@ -42,6 +42,7 @@ in
   # Task manager
   programs.taskwarrior = {
     enable = true;
+    package = pkgs.taskwarrior3;
     config = {
       uda.githubtitle.type="string";
       uda.githubtitle.label="Github Title";

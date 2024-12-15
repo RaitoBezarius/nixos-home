@@ -60,6 +60,7 @@ in
 
   # Mako systemd service.
   wayland.windowManager.sway = lib.mkIf (osConfig.my.display-server == "wayland") {
+    enable = true;
     systemd.enable = true;
     wrapperFeatures = {
       base = true;

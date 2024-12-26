@@ -48,6 +48,7 @@ block = "battery"
 driver = "upower"
 device = "DisplayDevice"
 format = " $icon $percentage $time "
+missing_format = ""
 
 [[block]]
 block = "time"

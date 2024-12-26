@@ -32,15 +32,15 @@ block = "uptime"
 
 [[block]]
 block = "net"
-device = "wlp3s0"
-format = "$icon $ssid $signal_strength $ip $frequency"
-format_alt = "$ssid $ipv6 $speed_down.eng(prefix:M)"
+device = "^wlp.*$"
+format = "$icon {$ssid $signal_strength $frequency|Wired connection} $ip"
+format_alt = "{$ssid|Wired connection} $ipv6 $speed_down.eng(prefix:M)"
 interval = 20
 # hide_inactive = true
 
 [[block]]
 block = "net"
-device = "enp0s31f6"
+device = "^enp.*f.*$"
 format = " $icon $bitrate $ip "
 format_alt = " $ipv6 $speed_up.eng(prefix:M) $speed_down.eng(prefix:M) "
 interval = 20
@@ -48,7 +48,7 @@ missing_format = ""
 
 [[block]]
 block = "net"
-device = "enp9s0u1"
+device = "^enp.*u.*$"
 format = " $icon $ip "
 format_alt = " $ipv6 $speed_up.eng(prefix:M) $speed_down.eng(prefix:M) "
 interval = 5

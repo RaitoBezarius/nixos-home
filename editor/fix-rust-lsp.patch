@@ -1,0 +1,250 @@
+From 83a08470c0ba16fe2f959e2cb8ed145e239d1fa4 Mon Sep 17 00:00:00 2001
+From: Gregory Anders <greg@gpanders.com>
+Date: Mon, 25 Nov 2024 11:48:11 -0600
+Subject: [PATCH] fix(lsp): retrigger diagnostics request on server
+ cancellation (#31345)
+
+Co-authored-by: Jesse <github@jessebakker.com>
+(cherry picked from commit 29c72cdf4a4913c152f037865cb28c78a8930340)
+---
+ runtime/doc/lsp.txt                           |  3 +-
+ runtime/lua/vim/lsp/diagnostic.lua            | 12 +++-
+ runtime/lua/vim/lsp/handlers.lua              |  3 +-
+ runtime/lua/vim/lsp/protocol.lua              |  1 +
+ test/functional/fixtures/fake-lsp-server.lua  | 15 +++++
+ .../functional/plugin/lsp/diagnostic_spec.lua | 62 ++++++++++++++++++-
+ test/functional/plugin/lsp_spec.lua           | 34 +++++++++-
+ 7 files changed, 122 insertions(+), 8 deletions(-)
+
+diff --git a/runtime/doc/lsp.txt b/runtime/doc/lsp.txt
+index 499d28d95917f0..5e7dfb3a037be0 100644
+--- a/runtime/doc/lsp.txt
++++ b/runtime/doc/lsp.txt
+@@ -1472,7 +1472,7 @@ get_namespace({client_id}, {is_pull})
+                      client. Defaults to push
+ 
+                                           *vim.lsp.diagnostic.on_diagnostic()*
+-on_diagnostic({_}, {result}, {ctx}, {config})
++on_diagnostic({error}, {result}, {ctx}, {config})
+     |lsp-handler| for the method "textDocument/diagnostic"
+ 
+     See |vim.diagnostic.config()| for configuration options. Handler-specific
+@@ -1497,6 +1497,7 @@ on_diagnostic({_}, {result}, {ctx}, {config})
+ <
+ 
+     Parameters: ~
++      • {error}   (`lsp.ResponseError?`)
+       • {result}  (`lsp.DocumentDiagnosticReport`)
+       • {ctx}     (`lsp.HandlerContext`)
+       • {config}  (`vim.diagnostic.Opts`) Configuration table (see
+diff --git a/runtime/lua/vim/lsp/diagnostic.lua b/runtime/lua/vim/lsp/diagnostic.lua
+index 5ed42700e3e87a..223cbb3a0993d0 100644
+--- a/runtime/lua/vim/lsp/diagnostic.lua
++++ b/runtime/lua/vim/lsp/diagnostic.lua
+@@ -315,11 +315,19 @@ end
+ --- )
+ --- ```
+ ---
+----@param _ lsp.ResponseError?
++---@param error lsp.ResponseError?
+ ---@param result lsp.DocumentDiagnosticReport
+ ---@param ctx lsp.HandlerContext
+ ---@param config vim.diagnostic.Opts Configuration table (see |vim.diagnostic.config()|).
+-function M.on_diagnostic(_, result, ctx, config)
++function M.on_diagnostic(error, result, ctx, config)
++  if error ~= nil and error.code == protocol.ErrorCodes.ServerCancelled then
++    if error.data == nil or error.data.retriggerRequest ~= false then
++      local client = assert(vim.lsp.get_client_by_id(ctx.client_id))
++      client.request(ctx.method, ctx.params)
++    end
++    return
++  end
++
+   if result == nil or result.kind == 'unchanged' then
+     return
+   end
+diff --git a/runtime/lua/vim/lsp/handlers.lua b/runtime/lua/vim/lsp/handlers.lua
+index 7018b9f61beb85..4d204dd1dbf925 100644
+--- a/runtime/lua/vim/lsp/handlers.lua
++++ b/runtime/lua/vim/lsp/handlers.lua
+@@ -716,7 +716,8 @@ for k, fn in pairs(M) do
+       })
+     end
+ 
+-    if err then
++    -- ServerCancelled errors should be propagated to the request handler
++    if err and err.code ~= protocol.ErrorCodes.ServerCancelled then
+       -- LSP spec:
+       -- interface ResponseError:
+       --  code: integer;
+diff --git a/runtime/lua/vim/lsp/protocol.lua b/runtime/lua/vim/lsp/protocol.lua
+index 419c2ff64496a0..a770f23ffef1db 100644
+--- a/runtime/lua/vim/lsp/protocol.lua
++++ b/runtime/lua/vim/lsp/protocol.lua
+@@ -166,6 +166,7 @@ local constants = {
+     -- Defined by the protocol.
+     RequestCancelled = -32800,
+     ContentModified = -32801,
++    ServerCancelled = -32802,
+   },
+ 
+   -- Describes the content type that a client supports in various
+diff --git a/test/functional/fixtures/fake-lsp-server.lua b/test/functional/fixtures/fake-lsp-server.lua
+index f806869b40c1af..cc69948cfae441 100644
+--- a/test/functional/fixtures/fake-lsp-server.lua
++++ b/test/functional/fixtures/fake-lsp-server.lua
+@@ -386,6 +386,21 @@ function tests.check_forward_content_modified()
+   }
+ end
+ 
++function tests.check_forward_server_cancelled()
++  skeleton {
++    on_init = function()
++      return { capabilities = {} }
++    end,
++    body = function()
++      expect_request('error_code_test', function()
++        return { code = -32802 }, nil, { method = 'error_code_test', client_id = 1 }
++      end)
++      expect_notification('finish')
++      notify('finish')
++    end,
++  }
++end
++
+ function tests.check_pending_request_tracked()
+   skeleton {
+     on_init = function(_)
+diff --git a/test/functional/plugin/lsp/diagnostic_spec.lua b/test/functional/plugin/lsp/diagnostic_spec.lua
+index 779c4641b9488b..60fb24d8d7a10b 100644
+--- a/test/functional/plugin/lsp/diagnostic_spec.lua
++++ b/test/functional/plugin/lsp/diagnostic_spec.lua
+@@ -264,11 +264,16 @@ describe('vim.lsp.diagnostic', function()
+     before_each(function()
+       exec_lua(create_server_definition)
+       exec_lua([[
++        _G.requests = 0
+         server = _create_server({
+           capabilities = {
+-            diagnosticProvider = {
+-            }
+-          }
++            diagnosticProvider = {},
++          },
++          handlers = {
++            [vim.lsp.protocol.Methods.textDocument_diagnostic] = function()
++              _G.requests = _G.requests + 1
++            end,
++          },
+         })
+ 
+         function get_extmarks(bufnr, client_id)
+@@ -409,5 +414,56 @@ describe('vim.lsp.diagnostic', function()
+       diags = exec_lua([[return vim.diagnostic.get(diagnostic_bufnr)]])
+       eq(1, #diags)
+     end)
++
++    it('handles server cancellation', function()
++      eq(
++        1,
++        exec_lua([[
++          vim.lsp.diagnostic.on_diagnostic({
++            code = vim.lsp.protocol.ErrorCodes.ServerCancelled,
++            -- Empty data defaults to retriggering request
++            data = {},
++            message = '',
++          }, {}, {
++            method = vim.lsp.protocol.Methods.textDocument_diagnostic,
++            client_id = client_id,
++          })
++
++          return _G.requests
++        ]])
++      )
++
++      eq(
++        2,
++        exec_lua([[
++          vim.lsp.diagnostic.on_diagnostic({
++            code = vim.lsp.protocol.ErrorCodes.ServerCancelled,
++            data = { retriggerRequest = true },
++            message = '',
++          }, {}, {
++            method = vim.lsp.protocol.Methods.textDocument_diagnostic,
++            client_id = client_id,
++          })
++
++          return _G.requests
++        ]])
++      )
++
++      eq(
++        2,
++        exec_lua([[
++          vim.lsp.diagnostic.on_diagnostic({
++            code = vim.lsp.protocol.ErrorCodes.ServerCancelled,
++            data = { retriggerRequest = false },
++            message = '',
++          }, {}, {
++            method = vim.lsp.protocol.Methods.textDocument_diagnostic,
++            client_id = client_id,
++          })
++
++          return _G.requests
++        ]])
++      )
++    end)
+   end)
+ end)
+diff --git a/test/functional/plugin/lsp_spec.lua b/test/functional/plugin/lsp_spec.lua
+index 0b6e8441de4037..1e753a723ea5f3 100644
+--- a/test/functional/plugin/lsp_spec.lua
++++ b/test/functional/plugin/lsp_spec.lua
+@@ -945,6 +945,39 @@ describe('LSP', function()
+       }
+     end)
+ 
++    it('should forward ServerCancelled to callback', function()
++      local expected_handlers = {
++        { NIL, {}, { method = 'finish', client_id = 1 } },
++        {
++          { code = -32802 },
++          NIL,
++          { method = 'error_code_test', bufnr = 1, client_id = 1 },
++        },
++      }
++      local client --- @type vim.lsp.Client
++      test_rpc_server {
++        test_name = 'check_forward_server_cancelled',
++        on_init = function(_client)
++          _client.request('error_code_test')
++          client = _client
++        end,
++        on_exit = function(code, signal)
++          eq(0, code, 'exit code')
++          eq(0, signal, 'exit signal')
++          eq(0, #expected_handlers, 'did not call expected handler')
++        end,
++        on_handler = function(err, _, ctx)
++          eq(table.remove(expected_handlers), { err, _, ctx }, 'expected handler')
++          if ctx.method ~= 'finish' then
++            client.notify('finish')
++          end
++          if ctx.method == 'finish' then
++            client.stop()
++          end
++        end,
++      }
++    end)
++
+     it('should forward ContentModified to callback', function()
+       local expected_handlers = {
+         { NIL, {}, { method = 'finish', client_id = 1 } },
+@@ -964,7 +997,6 @@ describe('LSP', function()
+         end,
+         on_handler = function(err, _, ctx)
+           eq(table.remove(expected_handlers), { err, _, ctx }, 'expected handler')
+-          -- if ctx.method == 'error_code_test' then client.notify("finish") end
+           if ctx.method ~= 'finish' then
+             client.notify('finish')
+           end

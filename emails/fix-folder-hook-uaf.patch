@@ -1,0 +1,29 @@
+From b5ebac00a1e3aedf087d0e9e50fcab2bf6a25fd4 Mon Sep 17 00:00:00 2001
+From: Richard Russon <rich@flatcap.org>
+Date: Sun, 15 Dec 2024 16:14:00 +0000
+Subject: [PATCH] fix crash in folder-hook
+
+On startup, folder-hook is called for the $folder Mailbox.
+
+If the hook commands alter this Mailbox, then `m_cur->name` might get
+freed before we need it.
+---
+ main.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/main.c b/main.c
+index ee22334d1e..789eef1e09 100644
+--- a/main.c
++++ b/main.c
+@@ -1401,7 +1401,10 @@ main
+     }
+ 
+     struct Mailbox *m_cur = mailbox_find(buf_string(folder));
+-    mutt_folder_hook(buf_string(folder), m_cur ? m_cur->name : NULL);
++    // Take a copy of the name just in case the hook alters m_cur
++    const char *name = mutt_str_dup(m_cur ? m_cur->name : NULL);
++    mutt_folder_hook(buf_string(folder), name);
++    FREE(&name);
+     mutt_startup_shutdown_hook(MUTT_STARTUP_HOOK);
+     mutt_debug(LL_NOTIFY, "NT_GLOBAL_STARTUP\n");
+     notify_send(NeoMutt->notify, NT_GLOBAL, NT_GLOBAL_STARTUP, NULL);

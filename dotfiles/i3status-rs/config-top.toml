@@ -40,7 +40,7 @@ interval = 20
 
 [[block]]
 block = "net"
-device = "^enp.*f.*$"
+device = "^enp.*f.*"
 format = " $icon $bitrate $ip "
 format_alt = " $ipv6 $speed_up.eng(prefix:M) $speed_down.eng(prefix:M) "
 interval = 20
@@ -48,7 +48,7 @@ missing_format = ""
 
 [[block]]
 block = "net"
-device = "^enp.*u.*$"
+device = "^enp.*u.*"
 format = " $icon $ip "
 format_alt = " $ipv6 $speed_up.eng(prefix:M) $speed_down.eng(prefix:M) "
 interval = 5

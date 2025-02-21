@@ -125,10 +125,9 @@ in
       detsys = "${config.home.homeDirectory}/dev/github.com/DeterminateSystems";
       nixos = "${config.home.homeDirectory}/dev/github.com/NixOS";
       fos = "${config.home.homeDirectory}/dev/git.lix.systems/the-distro";
-      fos-infra = "${fos}/infra";
       lixp = "${config.home.homeDirectory}/dev/git.lix.systems/lix-project";
-      lix-infra = "${lixp}/web-services";
-      bbx = "${lixp}/buildbot-nix";
+      lixr = "${config.home.homeDirectory}/dev/git.lix.systems/raito";
+      cloud = "${config.home.homeDirectory}/dev/dinum.github.com/cloud-gouv";
       cbg = "${config.home.homeDirectory}/dev/codeberg.org";
       lzbt = "${config.home.homeDirectory}/dev/github.com/nix-community/lanzaboote";
       rfc = "${config.home.homeDirectory}/dev/github.com/NixOS/rfcs";

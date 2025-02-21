@@ -51,7 +51,7 @@
     reflex
     nix-prefetch
     # raito-dev.wireguard-vanity-address
-    xournal
+    xournalpp
     evince
     python3
     # raito-dev.uhk-agent
@@ -83,10 +83,10 @@
     nixpkgs-review
 
     # Haskell-oriented developement
-    ghc
-    cabal2nix
-    cabal-install
-    haskellPackages.haskell-language-server
+    # ghc
+    # cabal2nix
+    # cabal-install
+    # haskellPackages.haskell-language-server
     djview
     # ghidra
 

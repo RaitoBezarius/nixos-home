@@ -119,11 +119,11 @@ in
     # ++ cocPlugins
     ++ pythonPlugins
     ++ themes;
-    package = pkgs.neovim-unwrapped.overrideAttrs (old: {
-      patches = (old.patches or []) ++ [
-        ./fix-rust-lsp.patch
-      ];
-    });
+#     package = pkgs.neovim-unwrapped.overrideAttrs (old: {
+#       patches = (old.patches or []) ++ [
+#         ./fix-rust-lsp.patch
+#       ];
+#     });
     extraPackages = with pkgs; [
       gcc
       zig
@@ -135,7 +135,7 @@ in
       nodePackages.prettier
       ocamlPackages.ocaml-lsp
       # fstar
-      typst-lsp
+      tinymist
       typstfmt
       xclip # For Xorg
       wl-clipboard # For Wayland

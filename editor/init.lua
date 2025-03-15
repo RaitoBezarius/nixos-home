@@ -363,7 +363,7 @@ local on_attach = function(_, bufnr)
   end, { desc = 'Format current buffer with LSP' })
 end
 
-local servers = { 'rust_analyzer', 'pyright', 'ts_ls', 'nil_ls', 'leanls', 'ocamllsp', 'fstar', 'gopls', 'clangd' }
+local servers = { 'pyright', 'ts_ls', 'nil_ls', 'leanls', 'ocamllsp', 'fstar', 'gopls' }
 
 -- nvim-cmp supports additional completion capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -383,6 +383,25 @@ require('lspconfig').tinymist.setup {
   on_attach = on_attach,
   capabilities = capabilities
 }
+
+vim.g.rustaceanvim = {
+  -- Plugin configuration
+  tools = {
+  },
+  -- LSP configuration
+  server = {
+    on_attach = on_attach,
+    default_settings = {
+      -- rust-analyzer language server configuration
+      ['rust-analyzer'] = {
+      },
+    },
+  },
+  -- DAP configuration
+  dap = {
+  },
+}
+
 
 local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
 vim.api.nvim_create_autocmd("BufWritePre", {

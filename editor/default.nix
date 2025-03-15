@@ -26,6 +26,7 @@ let
     lean-nvim
     Coqtail
     go-nvim
+    rustaceanvim
   ];
   autocompletePlugins = with pkgs.vimPlugins; [
     nvim-cmp
@@ -118,11 +119,6 @@ in
     # ++ cocPlugins
     ++ pythonPlugins
     ++ themes;
-#     package = pkgs.neovim-unwrapped.overrideAttrs (old: {
-#       patches = (old.patches or []) ++ [
-#         ./fix-rust-lsp.patch
-#       ];
-#     });
     extraPackages = with pkgs; [
       gcc
       zig

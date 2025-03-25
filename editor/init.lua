@@ -363,7 +363,7 @@ local on_attach = function(_, bufnr)
   end, { desc = 'Format current buffer with LSP' })
 end
 
-local servers = { 'rust_analyzer', 'pyright', 'ts_ls', 'nil_ls', 'ccls', 'leanls', 'ocamllsp', 'fstar', 'gopls' }
+local servers = { 'rust_analyzer', 'pyright', 'ts_ls', 'nil_ls', 'leanls', 'ocamllsp', 'fstar', 'gopls', 'clangd' }
 
 -- nvim-cmp supports additional completion capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()

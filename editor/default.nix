@@ -23,7 +23,6 @@ let
     nvim-lspconfig
     fidget-nvim
     nlsp-settings-nvim
-    vim-ccls
     lean-nvim
     Coqtail
     go-nvim

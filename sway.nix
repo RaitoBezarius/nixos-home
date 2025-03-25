@@ -159,6 +159,13 @@ in
     '';
   };
 
+  home.pointerCursor = {
+    gtk.enable = true;
+    package = pkgs.bibata-cursors;
+    name = "Bibata-Modern-Ice";
+    size = 22;
+  };
+
   # TODO: branch on the type of machine
   services.kanshi = lib.mkIf (osConfig.my.display-server == "wayland") {
     enable = true;

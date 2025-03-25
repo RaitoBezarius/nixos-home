@@ -112,6 +112,7 @@ in
       kernel = "${gh}/torvalds/linux";
       pp = "${config.home.homeDirectory}/dev/github.com/RaitoBezarius";
       ppn = "${config.home.homeDirectory}/dev/git.newtype.fr/ryan";
+      ppl = "${config.home.homeDirectory}/dev/git.lahfa.xyz/raito";
       ens = "${config.home.homeDirectory}/dev/projects/ens";
       newtype = "${config.home.homeDirectory}/dev/git.newtype.fr";
       nt = "${config.home.homeDirectory}/dev/git.newtype.fr/newtype";
@@ -120,7 +121,7 @@ in
       dgn-infra = "${dgn}/DGNum/infra";
       dgn-lab = "${dgn}/DGNum/lab-infra";
       liminix = "${dgn}/DGNum/liminix";
-      tvl = "${config.home.homeDirectory}/dev/code.tvl.fyi";
+      snix = "${config.home.homeDirectory}/dev/cl.snix.dev";
       lix = "${config.home.homeDirectory}/dev/gerrit.lix.systems/lix";
       detsys = "${config.home.homeDirectory}/dev/github.com/DeterminateSystems";
       nixos = "${config.home.homeDirectory}/dev/github.com/NixOS";

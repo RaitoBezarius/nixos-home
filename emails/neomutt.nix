@@ -14,13 +14,6 @@ in
       enableLua = true;
       enableZstd = true;
     }).overrideAttrs (old: {
-      src = old.src.override {
-        rev = "20241212";
-        hash = "sha256-MruzI+4hdgBeE5kaptLsKyefNHIWCTWi3nCkMRTYtqQ=";
-      };
-      patches = (old.patches or [ ]) ++ [
-        ./fix-folder-hook-uaf.patch
-      ];
       # Undefined behavior + address sanitizer.
       configureFlags = old.configureFlags ++ lib.optional smokeOutBugs "--asan --ubsan";
     }));

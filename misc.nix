@@ -90,9 +90,9 @@ in
   services.mpdris2.enable = true;
 
   # Music library
-  programs.beets.enable = false;
-  # xdg.configFile."beets/config.yaml".source =
-  #  lib.mkForce /home/raito/dotfiles/.config/beets/config.yaml;
+  programs.beets.enable = true;
+  xdg.configFile."beets/config.yaml".source =
+   lib.mkForce /home/raito/dotfiles/.config/beets/config.yaml;
 
   # Terminal
   programs.kitty = {

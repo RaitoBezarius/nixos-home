@@ -67,7 +67,6 @@ in
       gtk = true;
     };
     xwayland = true;
-    systemdIntegration = true;
     extraSessionCommands = ''
       export XDG_SESSION_TYPE=wayland
       export XDG_CURRENT_DESKTOP=sway

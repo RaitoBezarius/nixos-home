@@ -3,7 +3,7 @@
   programs.vscode = {
     enable = true;
     package = pkgs.vscodium-fhs;
-    extensions = (with pkgs.vscode-extensions; [
+    profiles.default.extensions = (with pkgs.vscode-extensions; [
       bbenoist.nix
       redhat.vscode-yaml
       cmschuetz12.wal
@@ -14,7 +14,7 @@
       alygin.vscode-tlaplus
     ]);
 
-    userSettings = {
+    profiles.default.userSettings = {
       "window.zoomLevel" = 1;
       "workbench.colorTheme" = "Default High Contrast"; 
       "tlaplus.java.home" = "${pkgs.jdk11_headless}";

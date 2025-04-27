@@ -43,8 +43,13 @@
     easyeffects
     bind
     nixfmt-rfc-style
+
     tasksh
     taskwarrior-tui
+    timewarrior
+    python3Packages.bugwarrior
+    taskopen
+
     # TODO (broken): super-slicer
     unzip
     ripgrep

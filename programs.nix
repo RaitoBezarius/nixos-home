@@ -20,7 +20,8 @@
     niv
     pwgen
     git-crypt
-    bitwarden-cli
+    rbw
+    pinentry-curses
     gitAndTools.gitFull
     git-lfs
     git-absorb

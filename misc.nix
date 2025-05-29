@@ -96,7 +96,7 @@ in
   services.mpdris2.enable = true;
 
   # Music library
-  programs.beets.enable = true;
+  programs.beets.enable = false;
   xdg.configFile."beets/config.yaml".source =
    lib.mkForce /home/raito/dotfiles/.config/beets/config.yaml;
 

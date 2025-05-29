@@ -152,7 +152,7 @@ in
 
   services.mako = lib.mkIf (osConfig.my.display-server == "wayland") {
     enable = true;
-    criteria."mode=dnd".invisible = 1;
+    settings."mode=dnd".invisible = 1;
   };
 
   home.pointerCursor = {

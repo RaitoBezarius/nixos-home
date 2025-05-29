@@ -68,7 +68,7 @@
     nodePackages.node2nix
     nodePackages.pnpm
     # raito-dev.nodePackages.lean-language-server
-    borgbackup
+    # borgbackup
     python3Packages.percol
     libnotify
     fzf
@@ -103,7 +103,7 @@
     # ssh3
 
     # Security
-    python311Packages.pynitrokey
+    python312Packages.pynitrokey
 
     # VNC
     tigervnc

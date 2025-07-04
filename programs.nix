@@ -47,7 +47,7 @@
     tasksh
     taskwarrior-tui
     timewarrior
-    python3Packages.bugwarrior
+    python312Packages.bugwarrior
     taskopen
 
     # TODO (broken): super-slicer
@@ -69,7 +69,6 @@
     nodePackages.pnpm
     # raito-dev.nodePackages.lean-language-server
     # borgbackup
-    python3Packages.percol
     libnotify
     fzf
     keyutils

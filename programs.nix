@@ -85,7 +85,7 @@
     shellcheck
     # mathlibtools
     gnome-network-displays
-    nixpkgs-review
+    lixPackageSets.git.nixpkgs-review
 
     # Haskell-oriented developement
     # ghc

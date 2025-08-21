@@ -128,7 +128,8 @@ in
       fos = "${config.home.homeDirectory}/dev/git.lix.systems/the-distro";
       lixp = "${config.home.homeDirectory}/dev/git.lix.systems/lix-project";
       lixr = "${config.home.homeDirectory}/dev/git.lix.systems/raito";
-      afnix = "${config.home.homeDirectory}/dev/git.lix.systems/AFNix";
+      afnix-lix = "${config.home.homeDirectory}/dev/git.lix.systems/AFNix";
+      afnix = "${config.home.homeDirectory}/dev/git.afnix.fr";
       cloud = "${config.home.homeDirectory}/dev/dinum.github.com/cloud-gouv";
       cbg = "${config.home.homeDirectory}/dev/codeberg.org";
       lzbt = "${config.home.homeDirectory}/dev/github.com/nix-community/lanzaboote";

@@ -102,7 +102,7 @@
     # ssh3
 
     # VNC
-    tigervnc
+    # tigervnc
 
     gh
     tea

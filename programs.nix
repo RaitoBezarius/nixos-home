@@ -101,9 +101,6 @@
     ipv6calc
     # ssh3
 
-    # Security
-    python312Packages.pynitrokey
-
     # VNC
     tigervnc
 

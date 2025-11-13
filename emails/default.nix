@@ -57,9 +57,8 @@ let
     };
     smtp = {
       host = "kurisu.lahfa.xyz";
-      port = 587;
+      port = 465;
       tls.enable = true;
-      tls.useStartTls = true;
     };
 
     signature = {

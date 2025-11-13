@@ -84,8 +84,8 @@ let
     # REPL for Lua and VimScript
     neorepl-nvim
 
-    vimwiki
-    taskwiki
+    # vimwiki
+    # taskwiki
   ];
   cocPlugins = with pkgs.vimPlugins; [
     coc-prettier
@@ -130,7 +130,7 @@ in
       ocamlPackages.ocaml-lsp
       # fstar
       tinymist
-      typstfmt
+      typstyle
       xclip # For Xorg
       wl-clipboard # For Wayland
       nil
@@ -143,7 +143,7 @@ in
       flake8
       isort
       six
-      tasklib
+      # tasklib
     ]);
     extraConfig = ''
       lua<<EOF

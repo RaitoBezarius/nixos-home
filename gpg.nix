@@ -15,7 +15,7 @@ smart-pinentry = pkgs.writeScriptBin "pinentry" ''
           exit 1 # do not ask for passphrase
           ;;
         *)
-          exec ${pkgs.pinentry.curses}/bin/pinentry "$@"
+          exec ${pkgs.pinentry-curses}/bin/pinentry "$@"
         esac
         '';
   in

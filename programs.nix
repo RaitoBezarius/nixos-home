@@ -22,7 +22,7 @@
     git-crypt
     rbw
     pinentry-curses
-    gitAndTools.gitFull
+    gitFull
     git-lfs
     git-absorb
     git-gr
@@ -44,11 +44,11 @@
     bind
     nixfmt-rfc-style
 
-    tasksh
-    taskwarrior-tui
-    timewarrior
-    python312Packages.bugwarrior
-    taskopen
+    # tasksh
+    # taskwarrior-tui
+    # timewarrior
+    # python312Packages.bugwarrior
+    # taskopen
 
     # TODO (broken): super-slicer
     unzip

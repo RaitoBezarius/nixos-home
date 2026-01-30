@@ -1,4 +1,10 @@
-{ lib, pkgs, config, osConfig, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  osConfig,
+  ...
+}:
 let
   cfg = config.wayland.windowManager;
   workspaceNumberToFrenchSymbol = {
@@ -14,18 +20,35 @@ let
     "10" = "agrave";
   };
   workspaces = lib.range 1 10;
-  mkWorkspaceSym = symFn: valueFn: mod:
-    lib.listToAttrs (map (index:
-    let sym = workspaceNumberToFrenchSymbol.${toString index};
-    in { name = (symFn mod sym index); value = valueFn index; }) workspaces);
-  mkMoveToWorkspace = mkWorkspaceSym
-    (mod: sym: _: "${mod}+${sym}")
-    (index: "workspace ${toString index}");
-  mkMoveContainerToWorkspace = mkWorkspaceSym
-    # Nix has no % operator ???
-    (mod: sym: index: if index >= 6 then (if index == 10 then "${mod}+Shift+0" else "${mod}+Shift+${toString index}")
-    else "${mod}+Shift+${sym}")
-    (index: "move container to workspace number ${toString index}");
+  mkWorkspaceSym =
+    symFn: valueFn: mod:
+    lib.listToAttrs (
+      map (
+        index:
+        let
+          sym = workspaceNumberToFrenchSymbol.${toString index};
+        in
+        {
+          name = (symFn mod sym index);
+          value = valueFn index;
+        }
+      ) workspaces
+    );
+  mkMoveToWorkspace = mkWorkspaceSym (
+    mod: sym: _:
+    "${mod}+${sym}"
+  ) (index: "workspace ${toString index}");
+  mkMoveContainerToWorkspace =
+    mkWorkspaceSym
+      # Nix has no % operator ???
+      (
+        mod: sym: index:
+        if index >= 6 then
+          (if index == 10 then "${mod}+Shift+0" else "${mod}+Shift+${toString index}")
+        else
+          "${mod}+Shift+${sym}"
+      )
+      (index: "move container to workspace number ${toString index}");
 in
 {
   #home.file.".config/sway/config".source =
@@ -84,20 +107,23 @@ in
       menu = "${lib.getExe pkgs.wofi} --show run | ${pkgs.findutils}/bin/xargs swaymsg exec --";
 
       fonts = {
-        names = [ "pango:Fira Mono for Powerline" "FontAwesome 10" ];
+        names = [
+          "pango:Fira Mono for Powerline"
+          "FontAwesome 10"
+        ];
         size = 9.0;
         style = "Normal";
       };
 
       startup = [
         # Idle configuration
-      #  { command = ''swayidle -w \
-      #    timeout 300 'swaylock -f -c 000000' \
-      #    timeout 600 'swaymsg "output * dpms off"' \
-      #      resume 'swaymsg "output * dpms on"' \
-      #    before-sleep 'swaylock -f -c 000000'
-      #    '';
-      #  }
+        #  { command = ''swayidle -w \
+        #    timeout 300 'swaylock -f -c 000000' \
+        #    timeout 600 'swaymsg "output * dpms off"' \
+        #      resume 'swaymsg "output * dpms on"' \
+        #    before-sleep 'swaylock -f -c 000000'
+        #    '';
+        #  }
       ];
 
       input = {
@@ -111,20 +137,24 @@ in
         };
       };
 
-      keybindings = lib.mkOptionDefault ({
-        "Shift+Print" = "exec grim - | wl-copy";
-        "Shift+Alt+Print" = ''exec grim -g "$(slurp)" - | wl-copy'';
-        "Print" = "exec --no-startup-id flameshot gui";
-        "${modifier}+l" = "exec swaylock -f -c 000000";
-        "${modifier}+p" = "exec wpctl set-mute @DEFAULT_SINK@ toggle";
-        # TODO: quick edit /etc/nixos as root
-        # TODO: quick commit to my repository, the changes.
-        "${modifier}+Shift+a" = "gksudo nrs --no-build-nix";
-        "${modifier}+m" = "move workspace to output left";
-        "${modifier}+r" = "mode resize";
-        "${modifier}+s" = "scratchpad show";
-        "${modifier}+Shift+s" = "move scratchpad";
-      } // (mkMoveToWorkspace modifier) // (mkMoveContainerToWorkspace modifier));
+      keybindings = lib.mkOptionDefault (
+        {
+          "Shift+Print" = "exec grim - | wl-copy";
+          "Shift+Alt+Print" = ''exec grim -g "$(slurp)" - | wl-copy'';
+          "Print" = "exec --no-startup-id flameshot gui";
+          "${modifier}+l" = "exec swaylock -f -c 000000";
+          "${modifier}+p" = "exec wpctl set-mute @DEFAULT_SINK@ toggle";
+          # TODO: quick edit /etc/nixos as root
+          # TODO: quick commit to my repository, the changes.
+          "${modifier}+Shift+a" = "gksudo nrs --no-build-nix";
+          "${modifier}+m" = "move workspace to output left";
+          "${modifier}+r" = "mode resize";
+          "${modifier}+s" = "scratchpad show";
+          "${modifier}+Shift+s" = "move scratchpad";
+        }
+        // (mkMoveToWorkspace modifier)
+        // (mkMoveContainerToWorkspace modifier)
+      );
 
       modes.resize = {
         Left = "resize shrink width 10px";
@@ -139,12 +169,16 @@ in
         {
           position = "bottom";
           statusCommand = "${lib.getExe pkgs.i3status-rust} ~/.config/i3status-rs/config-bottom.toml";
-          fonts = cfg.sway.config.fonts // { size = 11.0; };
+          fonts = cfg.sway.config.fonts // {
+            size = 11.0;
+          };
         }
         {
           position = "top";
           statusCommand = "${lib.getExe pkgs.i3status-rust} ~/.config/i3status-rs/config-top.toml";
-          fonts = cfg.sway.config.fonts // { size = 11.0; };
+          fonts = cfg.sway.config.fonts // {
+            size = 11.0;
+          };
         }
       ];
     };
@@ -165,34 +199,42 @@ in
   # TODO: branch on the type of machine
   services.kanshi = lib.mkIf (osConfig.my.display-server == "wayland") {
     enable = true;
-    profiles = {
-      paris-dock = {
-        outputs = [
-          {
-            criteria = "ViewSonic Corporation XG270 VXR200700013";
-            mode = "1920x1080@60.000Hz";
-            position = "0,0";
-            scale = 1.0;
-            status = "enable";
-          }
-          {
-            criteria = "ViewSonic Corporation VG2765 Series UXS183300233";
-            mode = "2560x1440@59.951Hz";
-            position = "1920,0";
-            scale = 1.0;
-            transform = "90";
-            status = "enable";
-          }
-        ];
-      };
-      undocked = {
-        outputs = [{
-          criteria = "eDP-1";
-          mode = "3000x2000@59.999";
-          scale = 2.0;
-          status = "enable";
-        }];
-      };
-    };
+    settings = [
+      {
+        profile = {
+          name = "paris-dock";
+          outputs = [
+            {
+              criteria = "ViewSonic Corporation XG270 VXR200700013";
+              mode = "1920x1080@60.000Hz";
+              position = "0,0";
+              scale = 1.0;
+              status = "enable";
+            }
+            {
+              criteria = "ViewSonic Corporation VG2765 Series UXS183300233";
+              mode = "2560x1440@59.951Hz";
+              position = "1920,0";
+              scale = 1.0;
+              transform = "90";
+              status = "enable";
+            }
+          ];
+        };
+      }
+      {
+        profile = {
+          name = "undocked";
+          outputs = [
+            {
+              criteria = "eDP-1";
+              mode = "3000x2000@59.999";
+              scale = 2.0;
+              status = "enable";
+            }
+          ];
+        };
+      }
+    ];
   };
 }

@@ -8,19 +8,27 @@ in
 {
   # Git
   home.packages = [ pkgs.ghq ];
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+  };
+
   programs.git = {
     enable = true;
     package = pkgs.gitFull; # for git send-email
-    userEmail = emailUtils.obfuscate "moc.liamg@ppcnaretsam";
-    userName = emailUtils.obfuscate "suirazeB otiaR";
 
-    delta.enable = true;
     ignores = [
       ".direnv"
     ];
 
-    extraConfig = {
-      user.signingkey = lib.mkIf (builtins.hasAttr osConfig.networking.hostName signingKeys) (signingKeys.${osConfig.networking.hostName});
+    settings = {
+      user = {
+        email = emailUtils.obfuscate "moc.liamg@ppcnaretsam";
+        name = emailUtils.obfuscate "suirazeB otiaR";
+
+        signingkey = lib.mkIf (builtins.hasAttr osConfig.networking.hostName signingKeys) (signingKeys.${osConfig.networking.hostName});
+      };
+
       fetch.writeCommitGraph = true;
       core.fsmonitor = true;
       ghq = {

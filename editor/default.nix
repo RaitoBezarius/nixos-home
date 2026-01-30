@@ -25,7 +25,7 @@ let
     nlsp-settings-nvim
     lean-nvim
     Coqtail
-    go-nvim
+    # go-nvim
     rustaceanvim
   ];
   autocompletePlugins = with pkgs.vimPlugins; [
@@ -44,7 +44,7 @@ let
         tree-sitter-go
         # tree-sitter-lean4
       ]))
-    nvim-treesitter-textobjects
+    # nvim-treesitter-textobjects
   ];
   gitPlugins = with pkgs.vimPlugins; [
     vim-fugitive

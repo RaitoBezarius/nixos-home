@@ -27,8 +27,7 @@
     git-absorb
     git-gr
     hyperfine
-    minicom
-    picocom
+    # picocom
     magic-wormhole-rs
     # TODO (broken): khal
     aerc
@@ -72,7 +71,7 @@
     libnotify
     fzf
     keyutils
-    sieve-connect
+    # sieve-connect
     whois
     zip
     alacritty

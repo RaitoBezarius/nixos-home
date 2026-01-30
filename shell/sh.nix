@@ -11,8 +11,9 @@ in
     enableCompletion = true;
     autosuggestion.enable = true;
     history = { save = 1000000; extended = true; ignoreDups = true; };
+    dotDir = config.home.homeDirectory;
     # defaultKeymap = "vicmd";
-    initExtra = ''
+    initContent = ''
       setopt extendedglob nomatch notify autopushd no_nomatch
       unsetopt autocd beep
 

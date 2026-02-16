@@ -6,7 +6,7 @@
     # flent
     usbutils
     # Docs
-    linux-manual
+    # linux-manual
     glibcInfo
     man-pages
     man-pages-posix

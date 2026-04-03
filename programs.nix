@@ -64,7 +64,6 @@
     # sage
     elan
     drone-cli
-    nodePackages.pnpm
     # raito-dev.nodePackages.lean-language-server
     # borgbackup
     libnotify

@@ -125,9 +125,6 @@ in
       zig
       rust-analyzer
       pyright
-      nodePackages.svelte-language-server
-      nodePackages.typescript-language-server
-      nodePackages.prettier
       ocamlPackages.ocaml-lsp
       # fstar
       tinymist

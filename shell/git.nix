@@ -17,6 +17,8 @@ in
     enable = true;
     package = pkgs.gitFull; # for git send-email
 
+    signing.format = "openpgp";
+
     ignores = [
       ".direnv"
     ];

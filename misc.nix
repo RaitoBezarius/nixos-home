@@ -24,6 +24,7 @@ in
 {
   xdg.userDirs = {
     enable = true;
+    setSessionVariables = true;
     createDirectories = false;
     desktop = "${config.home.homeDirectory}/desktop";
     documents = "${config.home.homeDirectory}/docs";
@@ -34,8 +35,8 @@ in
     videos = "${config.home.homeDirectory}/videos";
     templates = "${config.home.homeDirectory}/templates";
     extraConfig = {
-      XDG_IDENTITY_DIR = "${config.home.homeDirectory}/docs/identity";
-      XDG_DEV_DIR = "${config.home.homeDirectory}/dev";
+      IDENTITY = "${config.home.homeDirectory}/docs/identity";
+      DEV = "${config.home.homeDirectory}/dev";
     };
   };
 

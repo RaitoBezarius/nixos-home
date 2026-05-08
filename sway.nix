@@ -207,15 +207,22 @@ in
             {
               criteria = "ViewSonic Corporation XG270 VXR200700013";
               mode = "1920x1080@60.000Hz";
-              position = "0,0";
+              position = "640,0";
               scale = 1.0;
+              status = "enable";
+            }
+            {
+              criteria = "Dell Inc. DELL S2725QS 7DBD364";
+              mode = "3840x2160@59.997Hz";
+              position = "2560,0";
+              scale = 2.0;
               status = "enable";
             }
             {
               criteria = "ViewSonic Corporation VG2765 Series UXS183300233";
               mode = "2560x1440@59.951Hz";
-              position = "1920,0";
-              scale = 1.0;
+              position = "4479,0";
+              scale = 1.5;
               transform = "90";
               status = "enable";
             }

@@ -10,7 +10,7 @@
     # ./calendar/taskwarrior.nix
     # ./calendar
     ./dotfiles.nix
-    ./codium.nix
+    # ./codium.nix
     ./gpg.nix
     ./misc.nix
     ./gotify.nix

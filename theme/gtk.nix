@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
   gtk = {
     enable = true;
@@ -22,5 +22,6 @@
       name = "palenight";
       package = pkgs.palenight-theme;
     };
+    gtk4.theme = config.gtk.theme;
   };
 }

@@ -41,7 +41,7 @@
     pavucontrol
     easyeffects
     bind
-    nixfmt-rfc-style
+    nixfmt
 
     # tasksh
     # taskwarrior-tui

@@ -110,6 +110,7 @@ in
   programs.neovim = {
     enable = true;
     withPython3 = true;
+    withRuby = false;
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
@@ -117,7 +118,6 @@ in
     ++ lspPlugins
     ++ autocompletePlugins
     ++ treesitterPlugins
-    # ++ cocPlugins
     ++ pythonPlugins
     ++ themes;
     extraPackages = with pkgs; [
